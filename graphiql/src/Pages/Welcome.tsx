@@ -1,4 +1,5 @@
 import { useTranslation, Trans } from 'react-i18next';
+import { Button } from '@mantine/core';
 
 const Welcome = () => {
   const { i18n } = useTranslation();
@@ -8,8 +9,12 @@ const Welcome = () => {
   return (
     <div>
       <Trans i18nKey="welcome">Welcome to my app!</Trans>
-      <button onClick={() => changeLanguage('en')}>English</button>
-      <button onClick={() => changeLanguage('ru')}>Русский</button>
+      <Button color="lime" radius="md" onClick={() => changeLanguage('en')}>
+        English
+      </Button>
+      <Button color="lime" radius="md" onClick={() => changeLanguage('ru')}>
+        Русский
+      </Button>
     </div>
   );
 };
