@@ -1,3 +1,4 @@
 {
-    "welcome": "Welcome to my app!"
+  "welcome": "Welcome to my app!",
+  "welcome__link": "Welcome"
 }
