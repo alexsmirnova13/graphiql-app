@@ -10,7 +10,9 @@ const Welcome = () => {
   return (
     <div>
       <h1> ALO ЁPTA</h1>
-      <Trans i18nKey="welcome">Welcome to my app!</Trans>
+      <h1>
+        <Trans i18nKey="welcome"></Trans>
+      </h1>
       <Button color="lime" radius="md" onClick={() => changeLanguage('en')}>
         English
       </Button>

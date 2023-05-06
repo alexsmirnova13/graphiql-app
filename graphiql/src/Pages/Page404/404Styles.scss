@@ -8,21 +8,21 @@
     --color: #fafafa;
     --lit-header: #e6e6e6;
     --speed: 2s;
-    }
-    * {
+}
+* {
     transform-style: preserve-3d;
-    }
-    @property --swing-x {
+}
+@property --swing-x {
     initial-value: 0;
     inherits: false;
     syntax: '<integer>';
-    }
-    @property --swing-y {
+}
+@property --swing-y {
     initial-value: 0;
     inherits: false;
     syntax: '<integer>';
-    }
-    .body404 {
+}
+.body404 {
     min-height: 100vh;
     display: flex;
     font-family: 'Roboto', sans-serif;
@@ -32,9 +32,8 @@
     background: var(--bg);
     color: var(--color);
     perspective: 1200px;
-    }
-    .info__link {
-    text-transform: uppercase;
+}
+.info__link {
     text-decoration: none;
     background: var(--button);
     color: var(--button-color);
@@ -42,11 +41,18 @@
     border-radius: 4rem;
     font-size: 0.875rem;
     letter-spacing: 0.05rem;
+    border: none;
+    &:hover{
+        scale: 1.1;
+        transition: 0.5s;
+        cursor: pointer;
+        border: none;
     }
-    .info__text {
+}
+.info__text {
     font-weight: 100;
-    }
-    .h1404 {
+}
+.h1404 {
     -webkit-animation: swing var(--speed) infinite alternate ease-in-out;
             animation: swing var(--speed) infinite alternate ease-in-out;
     font-size: clamp(5rem, 40vmin, 20rem);
@@ -57,10 +63,11 @@
     transform: translate3d(0, 0, 0vmin);
     --x: calc(50% + (var(--swing-x) * 0.5) * 1%);
     background: radial-gradient(var(--lit-header), var(--header) 45%) var(--x) 100%/200% 200%;
+    background-clip: padding-box;
     -webkit-background-clip: text;
     color: transparent;
-    }
-    .h1404:after {
+}
+.h1404:after {
     -webkit-animation: swing var(--speed) infinite alternate ease-in-out;
             animation: swing var(--speed) infinite alternate ease-in-out;
     content: "404";
@@ -70,40 +77,40 @@
     color: var(--shadow);
     filter: blur(1.5vmin);
     transform: scale(1.05) translate3d(0, 12%, -10vmin) translate(calc((var(--swing-x, 0) * 0.05) * 1%), calc((var(--swing-y) * 0.05) * 1%));
-    }
-    .cloak {
+}
+.cloak {
     animation: swing var(--speed) infinite alternate-reverse ease-in-out;
     height: 100%;
     width: 100%;
     transform-origin: 50% 30%;
     transform: rotate(calc(var(--swing-x) * -0.25deg));
     background: radial-gradient(40% 40% at 50% 42%, transparent, #000 35%);
-    }
-    .cloak__wrapper {
+}
+.cloak__wrapper {
     position: fixed;
     top: 0;
     left: 0;
     bottom: 0;
     right: 0;
     overflow: hidden;
-    }
-    .cloak__container {
+}
+.cloak__container {
     height: 250vmax;
     width: 250vmax;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    }
-    .info {
+}
+.info {
     text-align: center;
     line-height: 1.5;
     max-width: clamp(16rem, 90vmin, 25rem);
-    }
-    .info > p {
+}
+.info > p {
     margin-bottom: 3rem;
-    }
-    @-webkit-keyframes swing {
+}
+@-webkit-keyframes swing {
     0% {
         --swing-x: -100;
         --swing-y: -100;
@@ -115,8 +122,8 @@
         --swing-y: -100;
         --swing-x: 100;
     }
-    }
-    @keyframes swing {
+}
+@keyframes swing {
     0% {
         --swing-x: -100;
         --swing-y: -100;
@@ -128,4 +135,4 @@
         --swing-y: -100;
         --swing-x: 100;
     }
-    } 
+} 
