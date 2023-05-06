@@ -6,6 +6,7 @@ import { setUser } from '../store/userSlice';
 import { FormRegistration } from '../helpers/types';
 import StyledForm from '../components/style/StyledForm';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { useTranslation, Trans } from 'react-i18next';
 
 const SignUp = () => {
   const {
@@ -18,6 +19,7 @@ const SignUp = () => {
   // const userState = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { i18n } = useTranslation();
 
   const [isDisabled, setDisabled] = useState(true);
   const [isValid, setIsValid] = useState(false);
@@ -60,9 +62,13 @@ const SignUp = () => {
 
   return (
     <StyledForm onSubmit={handleSubmit(onFormSubmit)} formHeigth="350px">
-      <h3>Registration</h3>
+      <h3>
+        <Trans i18nKey="signup.title">Registration</Trans>
+      </h3>
       <div className="input-field">
-        <label htmlFor="name">Name:</label>
+        <label htmlFor="name">
+          <Trans i18nKey="signup.name">Name:</Trans>
+        </label>
         <input
           type="text"
           id="name"
@@ -87,7 +93,10 @@ const SignUp = () => {
         <div className="error">Name must be no more than 30 characters long</div>
       )}
       <div className="input-field">
-        <label htmlFor="email">Email:</label>
+        <label htmlFor="email">
+          {' '}
+          <Trans i18nKey="signup.email">Email:</Trans>
+        </label>
         <input
           type="text"
           id="email"
@@ -106,7 +115,10 @@ const SignUp = () => {
         </div>
       )}
       <div className="input-field">
-        <label htmlFor="password">Password:</label>
+        <label htmlFor="password">
+          {' '}
+          <Trans i18nKey="signup.email">Password:</Trans>
+        </label>
         <input
           id="password"
           type="password"
@@ -134,7 +146,7 @@ const SignUp = () => {
       )}
       {isValid && <div style={{ color: '#deb887' }}>Registration completed successfully!</div>}
       <button className="button" type="submit" disabled={isDisabled}>
-        CREATE ACCOUNT
+        <Trans i18nKey="signup.submit">CREATE ACCOUNT</Trans>
       </button>
     </StyledForm>
   );
