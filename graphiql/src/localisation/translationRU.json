@@ -1,4 +1,8 @@
 {
   "welcome": "Драсьте",
-  "welcome__link": "Драсте"
+  "header": {
+    "welcome__link": "Драсьте",
+    "signin": "Регистрация",
+    "signup": "Вход"
+  }
 }

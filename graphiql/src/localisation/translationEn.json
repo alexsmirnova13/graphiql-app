@@ -1,4 +1,8 @@
 {
   "welcome": "Welcome to my app!",
-  "welcome__link": "Welcome"
+  "header": {
+    "welcome__link": "Welcome",
+    "signin": "SignIn",
+    "signup": "SignUp"
+  }
 }
