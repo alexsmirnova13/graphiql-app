@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../store/hooks';
 import { setUser } from '../store/userSlice';
-import { FormRegistration, UserState } from '../helpers/types';
+import { FormRegistration } from '../helpers/types';
 import StyledForm from '../components/style/StyledForm';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 
 const SignUp = () => {
   const {
@@ -15,7 +17,7 @@ const SignUp = () => {
 
   // const userState = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
-  const onSubmit = (user: UserState) => dispatch(setUser(user));
+  const navigate = useNavigate();
 
   const [isDisabled, setDisabled] = useState(true);
   const [isValid, setIsValid] = useState(false);
@@ -24,13 +26,28 @@ const SignUp = () => {
     setDisabled(!(isDirty && Object.keys(errors).length === 0));
   }, [errors, isDirty]);
 
-  const onFormSubmit = (form: FormRegistration) => {
-    const newUser = {
-      name: form.name,
-      email: form.email,
-      password: form.password,
-    };
-    onSubmit(newUser);
+  const onFormSubmit = async (form: FormRegistration) => {
+    const auth = getAuth();
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, form.email, form.password);
+      const accessToken = await userCredential.user.getIdToken();
+      const newUser = {
+        name: form.name,
+        email: form.email,
+        id: userCredential.user.uid,
+        token: accessToken,
+        refreshToken: userCredential.user.refreshToken,
+      };
+      console.log(newUser);
+      dispatch(setUser(newUser));
+      navigate('/graphi');
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error(error.message);
+        alert(error.message);
+      }
+    }
+
     setIsValid(true);
     setTimeout(() => {
       reset();
@@ -39,7 +56,7 @@ const SignUp = () => {
   };
 
   const passwordPattern = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])/;
-  const namePattern = /^[A-Z][a-z]{3,25}/;
+  const namePattern = /^[A-Z][a-z]/;
 
   return (
     <StyledForm onSubmit={handleSubmit(onFormSubmit)} formHeigth="350px">

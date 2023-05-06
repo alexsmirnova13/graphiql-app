@@ -1,35 +1,42 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useAppDispatch, useAppSelector } from '../store/hooks';
+import { useAppDispatch } from '../store/hooks';
 import { setUser } from '../store/userSlice';
-import { FormLogin, UserState } from '../helpers/types';
+import { FormLogin } from '../helpers/types';
 import StyledForm from '../components/style/StyledForm';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 const SignIn = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isDirty },
-    reset,
-  } = useForm<FormLogin>();
+  const { register, handleSubmit, reset } = useForm<FormLogin>();
 
-  // const userState = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
-  const onSubmit = (user: UserState) => dispatch(setUser(user));
+  const navigate = useNavigate();
 
-  const [isDisabled, setDisabled] = useState(true);
   const [isValid, setIsValid] = useState(false);
+  const auth = getAuth();
+  const [user, loading, error] = useAuthState(auth);
 
   useEffect(() => {
-    setDisabled(!(isDirty && Object.keys(errors).length === 0));
-  }, [errors, isDirty]);
+    if (loading) {
+      // maybe trigger a loading screen
+      return;
+    }
+    if (user) navigate('/graphi');
+  }, [user, loading]);
 
-  const onFormSubmit = (form: FormLogin) => {
-    const user = {
-      email: form.email,
-      password: form.password,
-    };
-    onSubmit(user);
+  const onFormSubmit = async (form: FormLogin) => {
+    try {
+      await signInWithEmailAndPassword(auth, form.email, form.password);
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error(error.message);
+        alert(error.message);
+        navigate('/signup');
+      }
+    }
+
     setIsValid(true);
     setTimeout(() => {
       reset();
@@ -48,10 +55,16 @@ const SignIn = () => {
         <label htmlFor="password">Password:</label>
         <input id="password" type="password" {...register('password')} />
       </div>
-      <button className="button" type="submit" disabled={isDisabled}>
+      <button className="button" type="submit">
         LOGIN
       </button>
       {isValid && <div style={{ color: '#deb887' }}>Logined!</div>}
+      <div>
+        <Link to="/reset">Forgot Password</Link>
+      </div>
+      <div>
+        Do not have an account? <Link to="/signup">Registeration</Link> now.
+      </div>
     </StyledForm>
   );
 };

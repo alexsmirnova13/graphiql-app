@@ -15,4 +15,9 @@ export type UserState = {
   email: string;
   password?: string;
   token?: string;
+  refreshToken: string;
+};
+
+export type UserExtension = {
+  token: string;
 };
