@@ -65,7 +65,7 @@ const Menu = (props: MenuProps) => {
         )}
       </div>
 
-      <Flex justify={'space-between'} gap={10}>
+      <Flex justify={'space-between'} gap={10} wrap={'wrap'}>
         <Flex gap={10} justify={'flex-start'}>
           {currentPage !== '/singin' && (
             <Box w={110}>
