@@ -14,7 +14,20 @@ function App() {
     setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
   return (
     <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
-      <MantineProvider theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
+      <MantineProvider
+        theme={{
+          colorScheme,
+          fontSizes: {
+            xs: '0.6rem',
+            sm: '0.75rem',
+            md: '0.9rem',
+            lg: '1rem',
+            xl: '1.2rem',
+          },
+        }}
+        withGlobalStyles
+        withNormalizeCSS
+      >
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Welcome />} />
