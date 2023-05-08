@@ -30,6 +30,7 @@ const AppHeader = () => {
         </Flex>
         <Burger opened={opened} onClick={open} className={classes.hiddenDesktop} />
       </Flex>
+
       <Drawer.Root opened={opened} onClose={close} size="100%">
         <Drawer.Content>
           <Drawer.Header>

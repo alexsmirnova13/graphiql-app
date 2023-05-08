@@ -1,6 +1,7 @@
 import { Trans } from 'react-i18next';
 import './../styles.scss';
 import { Box, Button, Flex, MantineTheme, createStyles } from '@mantine/core';
+import { Link } from 'react-router-dom';
 
 const useStyles = createStyles((theme: MantineTheme) => ({
   box: {
@@ -24,9 +25,12 @@ const Welcome = () => {
           <Trans i18nKey="welcome.p1" />
         </p>
         <Flex justify={'center'}>
-          <Button variant="gradient" gradient={{ from: 'orange', to: 'red' }} size="xl">
-            <Trans i18nKey="welcome.start" />
-          </Button>
+          {/* !добавить условный рендоринг */}
+          <Box component={Link} to={'/graphi'}>
+            <Button variant="gradient" gradient={{ from: 'orange', to: 'red' }} size="xl">
+              <Trans i18nKey="welcome.start" />
+            </Button>
+          </Box>
         </Flex>
       </Box>
       <Box className={classes.box} w={'85%'}>
