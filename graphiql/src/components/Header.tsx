@@ -1,4 +1,13 @@
-import { Header, UnstyledButton, Image, createStyles, Flex, Button } from '@mantine/core';
+import {
+  Header,
+  UnstyledButton,
+  Image,
+  createStyles,
+  Flex,
+  Button,
+  Switch,
+  useMantineColorScheme,
+} from '@mantine/core';
 import { useTranslation, Trans } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
 import logo from '../assets/svg/logo.svg';
@@ -15,9 +24,6 @@ const useStyles = createStyles({
       backgroundColor: 'rgba(2, 190, 242, 0.4)',
       scale: '1.1',
     },
-  },
-  logo: {
-    //flex: '1',
   },
   link: {
     textDecoration: 'none',
@@ -39,29 +45,33 @@ const AppHeader = () => {
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng);
   };
-  const them = 'dark';
   const currentPage = useLocation().pathname;
+  const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   return (
     <Header height={60} fixed={true} zIndex={2}>
       <Flex justify={'space-between'} align={'center'} px={10} gap={10}>
-        <Image width={200} height={60} src={logo} className={classes.logo} />
-        <Link to="/" className={classes.home}>
-          <IconHome2 size={25} color="#4090bf" strokeWidth={1} />
-        </Link>
-        {currentPage !== '/singin' && (
-          <Button>
-            <Link className={classes.link} to="/sing">
-              <Trans i18nKey="header.signin"></Trans>
+        <Image width={200} height={60} src={logo} />
+        <div className={classes.home}>
+          {currentPage !== '/' && (
+            <Link to="/" className={classes.link}>
+              <IconHome2 size={25} color="#4090bf" strokeWidth={1} />
             </Link>
-          </Button>
+          )}
+        </div>
+        {currentPage !== '/singin' && (
+          <Link className={classes.link} to="/sing">
+            <Button>
+              <Trans i18nKey="header.signin"></Trans>
+            </Button>
+          </Link>
         )}
 
         {currentPage !== '/singup' && (
-          <Button>
-            <Link className={classes.link} to="/sing">
+          <Link className={classes.link} to="/sing">
+            <Button>
               <Trans i18nKey="header.signup"></Trans>
-            </Link>
-          </Button>
+            </Button>
+          </Link>
         )}
         <UnstyledButton
           className={classes.button}
@@ -73,13 +83,13 @@ const AppHeader = () => {
         >
           {i18n.language.toUpperCase()}
         </UnstyledButton>
-        <UnstyledButton className={classes.theme} p={2} color="blue" h={30} w={30}>
-          {them === 'dark' ? (
-            <IconSunHigh size={25} strokeWidth={1} color={'#fcfc03'} />
-          ) : (
-            <IconMoon strokeWidth={1} size={23} />
-          )}
-        </UnstyledButton>
+        <Switch
+          checked={colorScheme === 'dark'}
+          onChange={() => toggleColorScheme()}
+          size="lg"
+          onLabel={<IconSunHigh color={'#fcfc03'} size="1.25rem" stroke={1.5} />}
+          offLabel={<IconMoon size="1.25rem" stroke={1.5} />}
+        />
       </Flex>
     </Header>
   );
