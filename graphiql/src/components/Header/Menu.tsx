@@ -51,7 +51,7 @@ const Menu = (props: MenuProps) => {
     <>
       <div className={classes.home}>
         {currentPage !== '/' && (
-          <Link to="/">
+          <Box component={Link} to="/">
             <Button
               variant="subtle"
               color="#4090bf"
@@ -61,7 +61,7 @@ const Menu = (props: MenuProps) => {
             >
               Home
             </Button>
-          </Link>
+          </Box>
         )}
       </div>
 
