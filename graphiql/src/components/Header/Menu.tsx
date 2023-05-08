@@ -64,6 +64,7 @@ const Menu = (props: MenuProps) => {
           </Link>
         )}
       </div>
+
       <Flex justify={'space-between'} gap={10}>
         <Flex gap={10} justify={'flex-start'}>
           {currentPage !== '/singin' && (
@@ -86,6 +87,7 @@ const Menu = (props: MenuProps) => {
             </Box>
           )}
         </Flex>
+
         <Flex gap={10} justify={'flex-end'} align={'center'}>
           <UnstyledButton
             className={classes.button}
@@ -97,6 +99,7 @@ const Menu = (props: MenuProps) => {
           >
             {i18n.language.toUpperCase()}
           </UnstyledButton>
+
           <Switch
             checked={colorScheme === 'dark'}
             onChange={() => toggleColorScheme()}
