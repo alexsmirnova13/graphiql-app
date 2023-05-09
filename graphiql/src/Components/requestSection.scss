@@ -2,8 +2,8 @@
     display: flex;
     flex-direction: column;
     background-color: burlywood;
-    width: 32%;
-    height: 100vh;
+    width: 50%;
+    height: calc(100vh - 2rem - 3.75rem);
     justify-content: space-between;
     &__code {
         display: flex;

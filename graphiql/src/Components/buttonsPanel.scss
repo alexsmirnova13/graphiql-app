@@ -1,7 +1,7 @@
 .buttonsPannel {
     display: flex;
     flex-direction: column;
-    width: 4%;
+    width: 60px;
     background-color: green;
-    height: 100vh;
+    height: calc(100vh - 2rem - 3.75rem);
 }
