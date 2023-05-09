@@ -2,11 +2,11 @@ import { Route, Routes } from 'react-router-dom';
 import Welcome from './Pages/Welcome';
 import Sing from './Pages/Sign';
 import Graphi from './Pages/Graphi';
-import NotFound from './Pages/NotFound';
+import NotFound from './Pages/Page404/404';
+import Layout from './Components/Layout';
 import { withTranslation } from 'react-i18next';
 import { ColorScheme, ColorSchemeProvider, MantineProvider } from '@mantine/core';
 import { useState } from 'react';
-import Layout from './Components/Layout';
 
 function App() {
   const [colorScheme, setColorScheme] = useState<ColorScheme>('light');
