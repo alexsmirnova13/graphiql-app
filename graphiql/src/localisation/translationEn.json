@@ -14,6 +14,7 @@
   "header": {
     "welcome__link": "Welcome",
     "signin": "SignIn",
-    "signup": "SignUp"
+    "signup": "SignUp",
+    "home": "Home"
   }
 }
