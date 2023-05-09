@@ -1,0 +1,25 @@
+.requestSection {
+    display: flex;
+    flex-direction: column;
+    background-color: burlywood;
+    width: 32%;
+    height: 100vh;
+    justify-content: space-between;
+    &__code {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        background-color: cornsilk;
+        height: 50%;
+        button {
+            height: 20px;
+        }
+    }
+    &__varHead {
+        display: flex;
+        flex-direction: row;
+        background-color: blanchedalmond;
+        height: 50%;
+        justify-content: space-between;
+    }
+}
