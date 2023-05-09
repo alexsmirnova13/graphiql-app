@@ -4,9 +4,10 @@ import { useAppDispatch } from '../store/hooks';
 import { setUser } from '../store/userSlice';
 import { FormLogin } from '../helpers/types';
 import StyledForm from '../components/style/StyledForm';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '../../firebase';
 
 const SignIn = () => {
   const { register, handleSubmit, reset } = useForm<FormLogin>();
@@ -15,24 +16,33 @@ const SignIn = () => {
   const navigate = useNavigate();
 
   const [isValid, setIsValid] = useState(false);
-  const auth = getAuth();
   const [user, loading, error] = useAuthState(auth);
 
-  useEffect(() => {
-    if (loading) {
-      // maybe trigger a loading screen
-      return;
-    }
-    if (user) navigate('/graphi');
-  }, [user, loading]);
+  // useEffect(() => {
+  //   if (loading) {
+  //     // maybe trigger a loading screen
+  //     return;
+  //   }
+  //   if (user) navigate('/graphi');
+  // }, [user, loading]);
 
   const onFormSubmit = async (form: FormLogin) => {
     try {
-      await signInWithEmailAndPassword(auth, form.email, form.password);
+      const userCredential = await signInWithEmailAndPassword(auth, form.email, form.password);
+      const accessToken = await userCredential.user.getIdToken();
+      const newUser = {
+        name: 'Fix this',
+        email: form.email,
+        id: userCredential.user.uid,
+        token: accessToken,
+        refreshToken: userCredential.user.refreshToken,
+      };
+      console.log(newUser);
+      dispatch(setUser(newUser));
+      navigate('/graphi');
     } catch (error) {
       if (error instanceof Error) {
-        console.error(error.message);
-        alert(error.message);
+        alert('User not found!');
         navigate('/signup');
       }
     }
@@ -59,6 +69,7 @@ const SignIn = () => {
         LOGIN
       </button>
       {isValid && <div style={{ color: '#deb887' }}>Logined!</div>}
+      {error && <div className="error">{error.message}</div>}
       <div>
         <Link to="/reset">Forgot Password</Link>
       </div>

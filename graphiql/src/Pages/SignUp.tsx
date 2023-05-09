@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../store/hooks';
 import { setUser } from '../store/userSlice';
 import { FormRegistration } from '../helpers/types';
 import StyledForm from '../components/style/StyledForm';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
-import { useTranslation, Trans } from 'react-i18next';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { Trans } from 'react-i18next';
+import { auth, db } from '../../firebase';
+import { addDoc, collection, setDoc } from 'firebase/firestore';
 
 const SignUp = () => {
   const {
@@ -19,7 +21,6 @@ const SignUp = () => {
   // const userState = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { i18n } = useTranslation();
 
   const [isDisabled, setDisabled] = useState(true);
   const [isValid, setIsValid] = useState(false);
@@ -29,10 +30,13 @@ const SignUp = () => {
   }, [errors, isDirty]);
 
   const onFormSubmit = async (form: FormRegistration) => {
-    const auth = getAuth();
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, form.email, form.password);
       const accessToken = await userCredential.user.getIdToken();
+      await addDoc(collection(db, 'users', userCredential.user.uid), {
+        name: form.name,
+        email: form.email,
+      });
       const newUser = {
         name: form.name,
         email: form.email,
@@ -148,6 +152,9 @@ const SignUp = () => {
       <button className="button" type="submit" disabled={isDisabled}>
         <Trans i18nKey="signup.submit">CREATE ACCOUNT</Trans>
       </button>
+      <div>
+        Already have an account? <Link to="/signin">Login</Link> now.
+      </div>
     </StyledForm>
   );
 };
