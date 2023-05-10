@@ -17,6 +17,9 @@ const useStyles = createStyles((theme: MantineTheme) => ({
     textDecoration: 'none',
     lineHeight: '1',
   },
+  date: {
+    alignSelf: 'flex-end',
+  },
 }));
 
 const Footer = () => {
@@ -30,7 +33,7 @@ const Footer = () => {
       <Box component="a" href="https://rs.school/react/" target="_blank">
         <Logo height={50} fill={svgColor} className={classes.link} />
       </Box>
-      <Box>
+      <Box className={classes.date}>
         <b>{year}</b>
       </Box>
       <Flex>
