@@ -5,13 +5,9 @@ import { AppShell } from '@mantine/core';
 
 const Layout = () => {
   return (
-    <>
-      <AppHeader />
-      <AppShell>
-        <Outlet />
-      </AppShell>
-      <Footer />
-    </>
+    <AppShell header={<AppHeader />} footer={<Footer />}>
+      <Outlet />
+    </AppShell>
   );
 };
 

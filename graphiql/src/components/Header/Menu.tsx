@@ -55,7 +55,7 @@ const Menu = (props: MenuProps) => {
         {currentPage !== '/' && (
           <Box component={Link} to="/">
             <Button
-              variant="subtle"
+              variant={buttonType}
               color="#4090bf"
               leftIcon={<IconHome2 size={25} color="#4090bf" strokeWidth={1} />}
               onClick={close}

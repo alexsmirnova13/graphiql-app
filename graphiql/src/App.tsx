@@ -41,6 +41,11 @@ function App() {
               }),
             },
           },
+          globalStyles: () => ({
+            '.mantine-1tea8o2': {
+              minHeight: 'calc(100vh - 90px)',
+            },
+          }),
         }}
         withGlobalStyles
         withNormalizeCSS

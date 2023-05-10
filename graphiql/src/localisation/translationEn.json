@@ -16,5 +16,10 @@
     "signin": "SignIn",
     "signup": "SignUp",
     "home": "Home"
+  },
+  "footer": {
+    "andrei": "Andrei",
+    "alex": "Aleksandra",
+    "ira": "Iryna"
   }
 }
