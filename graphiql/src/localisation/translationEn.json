@@ -14,7 +14,6 @@
   "header": {
     "welcome__link": "Welcome",
     "signin": "SignIn",
-<<<<<<< HEAD
     "signup": "SignUp",
     "home": "Home"
   },
@@ -22,14 +21,12 @@
     "andrei": "Andrei",
     "alex": "Aleksandra",
     "ira": "Iryna"
-  }
-=======
-    "signup": "SignUp"
   },
-    "page404": {
-        "h2": "We can not find that page",
-        "p": "We are fairly sure that page used to be here, but seems to have gone missing. We do apologise on it is behalf.",
-        "button": "Home"
-    }
->>>>>>> develop
+  "signup": "SignUp",
+
+  "page404": {
+    "h2": "We can not find that page",
+    "p": "We are fairly sure that page used to be here, but seems to have gone missing. We do apologise on it is behalf.",
+    "button": "Home"
+  }
 }
