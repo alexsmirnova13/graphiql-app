@@ -45,6 +45,11 @@ function App() {
             '.mantine-1tea8o2': {
               minHeight: 'calc(100vh - 90px)',
             },
+            body: {
+              '::-webkit-scrollbar': {
+                width: '0',
+              },
+            },
           }),
         }}
         withGlobalStyles
