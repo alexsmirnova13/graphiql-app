@@ -36,10 +36,11 @@ const useStyles = createStyles({
 
 type MenuProps = {
   close?: () => void;
+  scroll?: number;
 };
 
 const Menu = (props: MenuProps) => {
-  const { close } = props;
+  const { close, scroll } = props;
   const { classes } = useStyles();
   const { i18n } = useTranslation();
   const changeLanguage = (lng: string) => {
@@ -47,19 +48,19 @@ const Menu = (props: MenuProps) => {
   };
   const currentPage = useLocation().pathname;
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+  const buttonType = scroll === 0 ? 'subtle' : 'filled';
   return (
     <>
       <div className={classes.home}>
         {currentPage !== '/' && (
           <Box component={Link} to="/">
             <Button
-              variant="subtle"
+              variant={buttonType}
               color="#4090bf"
-              compact
               leftIcon={<IconHome2 size={25} color="#4090bf" strokeWidth={1} />}
               onClick={close}
             >
-              Home
+              <Trans i18nKey="header.home" />
             </Button>
           </Box>
         )}
@@ -70,7 +71,7 @@ const Menu = (props: MenuProps) => {
           {currentPage !== '/singin' && (
             <Box w={110}>
               <Link to="/sing">
-                <Button onClick={close}>
+                <Button onClick={close} variant={buttonType}>
                   <Trans i18nKey="header.signin"></Trans>
                 </Button>
               </Link>
@@ -80,7 +81,7 @@ const Menu = (props: MenuProps) => {
           {currentPage !== '/singup' && (
             <Box w={85}>
               <Link to="/sing">
-                <Button onClick={close}>
+                <Button onClick={close} variant={buttonType}>
                   <Trans i18nKey="header.signup"></Trans>
                 </Button>
               </Link>

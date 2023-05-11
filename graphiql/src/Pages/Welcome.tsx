@@ -1,5 +1,4 @@
 import { Trans } from 'react-i18next';
-import './../styles.scss';
 import { Box, Button, Flex, MantineTheme, createStyles } from '@mantine/core';
 import { Link } from 'react-router-dom';
 
