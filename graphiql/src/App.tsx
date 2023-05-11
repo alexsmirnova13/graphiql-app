@@ -2,7 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import Welcome from './Pages/Welcome';
 import Sing from './Pages/Sign';
 import Graphi from './Pages/Graphi';
-import NotFound from './Pages/NotFound';
+import NotFound from './Pages/Page404/404';
 import Layout from './components/Layout';
 import { withTranslation } from 'react-i18next';
 import {
