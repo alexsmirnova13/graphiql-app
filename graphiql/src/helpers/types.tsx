@@ -1,10 +1,4 @@
-export type FormLogin = {
-  email: string;
-  password: string;
-};
-
-export type FormRegistration = {
-  name: string;
+export type FormType = {
   email: string;
   password: string;
 };

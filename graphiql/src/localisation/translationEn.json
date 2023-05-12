@@ -14,22 +14,21 @@
   "header": {
     "welcome__link": "Welcome",
     "signin": "Login",
-    "signup": "Create account"
+    "signup": "Create account",
+    "home": "Home"
   },
     "signup": {
         "title": "Registration",
         "name": "Name:",
         "email": "Email:",
         "password": "Password:",
-        "submit": "CREATE ACCOUNT",
-    "home": "Home"
+        "submit": "CREATE ACCOUNT" 
   },
   "footer": {
     "andrei": "Andrei",
     "alex": "Aleksandra",
     "ira": "Iryna"
   },
-  "signup": "SignUp",
 
   "page404": {
     "h2": "We can not find that page",
