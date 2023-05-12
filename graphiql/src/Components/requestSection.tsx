@@ -1,17 +1,17 @@
-import './requestSection.scss';
+import { Button, Flex } from '@mantine/core';
 
 const RequestSection = () => {
   return (
-    <div className="requestSection">
-      <div className="requestSection__code">
+    <Flex w="50%" bg="yellow" direction="column" justify="space-between">
+      <Flex direction="row" justify="space-between" h="50%">
         <p>код тут</p>
-        <button>плей</button>
-      </div>
-      <div className="requestSection__varHead">
+        <Button>плей</Button>
+      </Flex>
+      <Flex direction="row" justify="space-between" h="50%" bg="cyan">
         <div>Вариаблес</div>
         <div>Хедерс</div>
-      </div>
-    </div>
+      </Flex>
+    </Flex>
   );
 };
 

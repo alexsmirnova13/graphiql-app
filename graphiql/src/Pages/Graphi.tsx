@@ -3,7 +3,7 @@ import ButtonsPanel from '../Components/buttonsPanel';
 import DocsExplorer from '../Components/docsExplorer';
 import RequestSection from '../Components/requestSection';
 import ResultSection from '../Components/resultSection';
-import './graphi.scss';
+import { Flex } from '@mantine/core';
 
 const Graphi = () => {
   const [isOpened, setIsOpened] = useState(false);
@@ -12,16 +12,16 @@ const Graphi = () => {
   };
 
   return (
-    <div className="graphiContainer">
-      <div className="graphiContainer__docs">
+    <Flex direction="row" w="100%">
+      <Flex direction="row">
         <ButtonsPanel onButtonClick={handleClick} />
         {isOpened && <DocsExplorer />}
-      </div>
-      <div className="graphiContainer__reqResp">
+      </Flex>
+      <Flex direction="row" w="100%">
         <RequestSection />
         <ResultSection />
-      </div>
-    </div>
+      </Flex>
+    </Flex>
   );
 };
 

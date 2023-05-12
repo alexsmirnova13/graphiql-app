@@ -1,11 +1,12 @@
-import './docsExplorer.scss';
+import { Flex, Input } from '@mantine/core';
+import { IconSearch } from '@tabler/icons-react';
 
 const DocsExplorer = () => {
   return (
-    <div className="docsExplorer">
-      <div>допустим кнопка</div>
+    <Flex w={350} direction="column" bg="grey">
+      <Input icon={<IconSearch size="1rem" />} placeholder="search" />
       <p>тут инфа разная</p>
-    </div>
+    </Flex>
   );
 };
 
