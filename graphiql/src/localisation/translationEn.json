@@ -17,12 +17,17 @@
     "signup": "Create account",
     "home": "Home"
   },
-    "signup": {
-        "title": "Registration",
-        "name": "Name:",
+    "form": {
+        "registration": "Registration",
+        "login": "Login",
         "email": "Email:",
-        "password": "Password:",
-        "submit": "CREATE ACCOUNT" 
+        "password": "Password:",        
+        "signup": "Create account"
+  },
+  "formError": {
+    "email": "Invalid email",
+    "password": "Password must be at least 8 characters long and contain at least one letter, one digit, and one special character",
+    "alert": "User not found! Check login or password!"
   },
   "footer": {
     "andrei": "Andrei",
