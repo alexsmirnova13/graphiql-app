@@ -57,7 +57,9 @@ const Menu = (props: MenuProps) => {
             <Button
               variant={buttonType}
               color="#4090bf"
-              leftIcon={<IconHome2 size={25} color="#4090bf" strokeWidth={1} />}
+              leftIcon={
+                <IconHome2 size={25} color={scroll === 0 ? '#4090bf' : '#fff'} strokeWidth={1} />
+              }
               onClick={close}
             >
               <Trans i18nKey="header.home" />
