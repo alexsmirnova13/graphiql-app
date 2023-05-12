@@ -9,9 +9,7 @@
   --lit-header: #e6e6e6;
   --speed: 2s;
 }
-* {
-  transform-style: preserve-3d;
-}
+
 @property --swing-x {
   initial-value: 0;
   inherits: false;
@@ -23,6 +21,7 @@
   syntax: '<integer>';
 }
 .body404 {
+  transform-style: preserve-3d;
   min-height: 100vh;
   display: flex;
   font-family: 'Roboto', sans-serif;
@@ -32,6 +31,10 @@
   background: var(--bg);
   color: var(--color);
   perspective: 1200px;
+
+  * {
+    transform-style: preserve-3d;
+  }
 }
 .info__link {
   text-decoration: none;
