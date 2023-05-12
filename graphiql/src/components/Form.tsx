@@ -5,7 +5,7 @@ import { useAppDispatch } from '../store/hooks';
 import { setUser } from '../store/userSlice';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../firebase';
-import { Trans, useTranslation } from 'react-i18next';
+import { Trans } from 'react-i18next';
 
 type FormProps = {
   title: string;
@@ -13,11 +13,6 @@ type FormProps = {
 };
 
 export const Form = ({ title, handler }: FormProps) => {
-  const passwordError = <Trans i18nKey={'formError.password'} />;
-  const { i18n } = useTranslation();
-  const lang = i18n.language;
-  console.log(lang);
-
   const form = useForm({
     initialValues: {
       email: '',
@@ -28,16 +23,13 @@ export const Form = ({ title, handler }: FormProps) => {
       title === 'Login'
         ? {}
         : {
-            // email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
             email: isEmail(<Trans i18nKey={'formError.email'} />),
 
             password: function (value) {
               const passwordRegex =
                 /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
               if (!passwordRegex.test(value)) {
-                // return 'Password must be at least 8 characters long and contain at least one letter, one digit, and one special character';
-                return passwordError;
-                // return '123';
+                return <Trans i18nKey={'formError.password'} />;
               }
             },
           },
@@ -72,7 +64,6 @@ export const Form = ({ title, handler }: FormProps) => {
 
   return (
     <Box maw={300} mx="auto">
-      {form.getInputProps('email').error}
       <h3>
         <Trans i18nKey={h3Title} />
       </h3>
@@ -86,13 +77,12 @@ export const Form = ({ title, handler }: FormProps) => {
         <PasswordInput
           withAsterisk
           label={<Trans i18nKey="form.password" />}
-          placeholder="Password"
+          placeholder="********"
           {...form.getInputProps('password')}
         />
 
         <Group position="right" mt="md">
           <Button type="submit">
-            {' '}
             <Trans i18nKey={btn} />
           </Button>
         </Group>
