@@ -2,10 +2,15 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import Welcome from './Pages/Welcome';
 import SignIn from './Pages/SignIn';
 import Graphi from './Pages/Graphi';
-import NotFound from './Pages/NotFound';
+import NotFound from './Pages/Page404/404';
 import Layout from './components/Layout';
 import { withTranslation } from 'react-i18next';
-import { ColorScheme, ColorSchemeProvider, MantineProvider } from '@mantine/core';
+import {
+  ButtonStylesParams,
+  ColorScheme,
+  ColorSchemeProvider,
+  MantineProvider,
+} from '@mantine/core';
 import { useState } from 'react';
 import SignUp from './Pages/SignUp';
 import { useAppSelector } from './store/hooks';
@@ -31,6 +36,28 @@ const App = () => {
             lg: '1rem',
             xl: '1.2rem',
           },
+          components: {
+            Button: {
+              // Subscribe to theme and component params
+              styles: (_theme, _params: ButtonStylesParams, { variant }) => ({
+                root: {
+                  '&:hover': {
+                    backgroundColor: variant === 'subtle' ? 'rgba(135, 131, 131, 0.1)' : undefined,
+                  },
+                },
+              }),
+            },
+          },
+          globalStyles: () => ({
+            '.mantine-1tea8o2': {
+              minHeight: 'calc(100vh - 90px)',
+            },
+            body: {
+              '::-webkit-scrollbar': {
+                width: '0',
+              },
+            },
+          }),
         }}
         withGlobalStyles
         withNormalizeCSS

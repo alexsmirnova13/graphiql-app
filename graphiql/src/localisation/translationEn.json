@@ -21,6 +21,19 @@
         "name": "Name:",
         "email": "Email:",
         "password": "Password:",
-        "submit": "CREATE ACCOUNT"
+        "submit": "CREATE ACCOUNT",
+    "home": "Home"
+  },
+  "footer": {
+    "andrei": "Andrei",
+    "alex": "Aleksandra",
+    "ira": "Iryna"
+  },
+  "signup": "SignUp",
+
+  "page404": {
+    "h2": "We can not find that page",
+    "p": "We are fairly sure that page used to be here, but seems to have gone missing. We do apologise on it is behalf.",
+    "button": "Home"
     }
 }

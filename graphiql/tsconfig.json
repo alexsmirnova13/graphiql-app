@@ -22,5 +22,6 @@
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }],
-  "plugins": [{"name": "ts-css-modules-vite-plugin"}]
+  "plugins": [{"name": "ts-css-modules-vite-plugin"}], 
+   "types": ["vite-plugin-svgr/client"]
 }
