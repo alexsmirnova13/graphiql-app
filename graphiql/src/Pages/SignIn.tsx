@@ -36,7 +36,7 @@ const SignIn = () => {
     } catch (error) {
       if (error instanceof Error) {
         alert('User not found! Check login or password!');
-        navigate('/signup');
+        // navigate('/signup');
       }
     }
 

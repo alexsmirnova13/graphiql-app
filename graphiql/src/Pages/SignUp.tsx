@@ -33,9 +33,11 @@ const SignUp = () => {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, form.email, form.password);
       const accessToken = await userCredential.user.getIdToken();
-      await addDoc(collection(db, 'users', userCredential.user.uid), {
+      await addDoc(collection(db, 'users'), {
+        uid: userCredential.user.uid,
         name: form.name,
-        email: form.email,
+        authProvider: 'local',
+        email: userCredential.user.email,
       });
       const newUser = {
         name: form.name,
