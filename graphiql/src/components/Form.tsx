@@ -5,7 +5,7 @@ import { useAppDispatch } from '../store/hooks';
 import { setUser } from '../store/userSlice';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../firebase';
-import { Trans } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 
 type FormProps = {
   title: string;
@@ -13,6 +13,11 @@ type FormProps = {
 };
 
 export const Form = ({ title, handler }: FormProps) => {
+  const passwordError = <Trans i18nKey={'formError.password'} />;
+  const { i18n } = useTranslation();
+  const lang = i18n.language;
+  console.log(lang);
+
   const form = useForm({
     initialValues: {
       email: '',
@@ -24,12 +29,15 @@ export const Form = ({ title, handler }: FormProps) => {
         ? {}
         : {
             // email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
-            email: isEmail('Invalid email'),
-            password: (value) => {
+            email: isEmail(<Trans i18nKey={'formError.email'} />),
+
+            password: function (value) {
               const passwordRegex =
                 /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
               if (!passwordRegex.test(value)) {
-                return 'Password must be at least 8 characters long and contain at least one letter, one digit, and one special character';
+                // return 'Password must be at least 8 characters long and contain at least one letter, one digit, and one special character';
+                return passwordError;
+                // return '123';
               }
             },
           },
@@ -64,33 +72,23 @@ export const Form = ({ title, handler }: FormProps) => {
 
   return (
     <Box maw={300} mx="auto">
+      {form.getInputProps('email').error}
       <h3>
         <Trans i18nKey={h3Title} />
       </h3>
-      <form
-        onSubmit={async (event) => {
-          event.preventDefault();
-          await onFormSubmit();
-          form.reset();
-        }}
-      >
+      <form onSubmit={onFormSubmit}>
         <TextInput
           withAsterisk
-          label="Email"
+          label={<Trans i18nKey="form.email" />}
           placeholder="your@email.com"
           {...form.getInputProps('email')}
-        >
-          {/* <Trans i18nKey="form.email" /> */}
-        </TextInput>
-
+        />
         <PasswordInput
           withAsterisk
-          label="Password"
+          label={<Trans i18nKey="form.password" />}
           placeholder="Password"
           {...form.getInputProps('password')}
-        >
-          {/* <Trans i18nKey="form.password" /> */}
-        </PasswordInput>
+        />
 
         <Group position="right" mt="md">
           <Button type="submit">
