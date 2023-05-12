@@ -13,20 +13,31 @@
   },
   "header": {
     "welcome__link": "Welcome",
-    "signin": "SignIn",
-    "signup": "SignUp",
+    "signin": "Login",
+    "signup": "Create account",
     "home": "Home"
+  },
+    "form": {
+        "registration": "Registration",
+        "login": "Login",
+        "email": "Email:",
+        "password": "Password:",        
+        "signup": "Create account"
+  },
+  "formError": {
+    "email": "Invalid email",
+    "password": "Password must be at least 8 characters long and contain at least one letter, one digit, and one special character",
+    "alert": "User not found! Check login or password!"
   },
   "footer": {
     "andrei": "Andrei",
     "alex": "Aleksandra",
     "ira": "Iryna"
   },
-  "signup": "SignUp",
 
   "page404": {
     "h2": "We can not find that page",
     "p": "We are fairly sure that page used to be here, but seems to have gone missing. We do apologise on it is behalf.",
     "button": "Home"
-  }
+    }
 }
