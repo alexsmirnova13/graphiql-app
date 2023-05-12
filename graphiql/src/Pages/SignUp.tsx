@@ -41,10 +41,11 @@ const SignUp = () => {
         name: form.name,
         email: form.email,
         id: userCredential.user.uid,
-        token: accessToken,
-        refreshToken: userCredential.user.refreshToken,
       };
       console.log(newUser);
+      localStorage.setItem('refreshToken', userCredential.user.refreshToken);
+      localStorage.setItem('user', form.name);
+      sessionStorage.setItem('accessToken', accessToken);
       dispatch(setUser(newUser));
       navigate('/graphi');
     } catch (error) {

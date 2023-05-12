@@ -13,8 +13,8 @@
   },
   "header": {
     "welcome__link": "Welcome",
-    "signin": "SignIn",
-    "signup": "SignUp"
+    "signin": "Login",
+    "signup": "Create account"
   },
     "signup": {
         "title": "Registration",

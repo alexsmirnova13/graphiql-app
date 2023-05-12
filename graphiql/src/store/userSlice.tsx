@@ -4,9 +4,7 @@ import { UserState } from '../helpers/types';
 const initialState: UserState = {
   name: '',
   email: '',
-  token: '',
   id: '',
-  refreshToken: '',
 };
 
 const userSlice = createSlice({
@@ -16,16 +14,12 @@ const userSlice = createSlice({
     setUser(state, action: PayloadAction<UserState>) {
       state.name = action.payload.name;
       state.email = action.payload.email;
-      state.token = action.payload.token;
       state.id = action.payload.id;
-      state.refreshToken = action.payload.refreshToken;
     },
     removeUser(state) {
       state.name = '';
       state.email = '';
-      state.token = '';
       state.id = '';
-      state.refreshToken = '';
     },
   },
 });

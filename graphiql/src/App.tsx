@@ -13,7 +13,7 @@ import { useAppSelector } from './store/hooks';
 const App = () => {
   const currentUser = useAppSelector((state) => state.user);
   const ReguireAuth = ({ children }: { children: React.ReactElement }) => {
-    return currentUser ? children : <Navigate to="/signin" />;
+    return currentUser.email !== '' ? children : <Navigate to="/signin" />;
   };
 
   const [colorScheme, setColorScheme] = useState<ColorScheme>('light');

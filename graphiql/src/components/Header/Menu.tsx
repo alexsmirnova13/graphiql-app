@@ -65,12 +65,12 @@ const Menu = (props: MenuProps) => {
         )}
       </div>
 
-      <Flex justify={'space-between'} gap={10} wrap={'wrap'}>
+      <Flex justify={'flex-start'} gap={10} wrap={'wrap'}>
         <Flex gap={10} justify={'flex-start'}>
           {currentPage !== '/singin' && (
-            <Box w={110}>
-              <Link to="/sing">
-                <Button onClick={close}>
+            <Box w={70}>
+              <Link to="/signin">
+                <Button onClick={close} w="100%">
                   <Trans i18nKey="header.signin"></Trans>
                 </Button>
               </Link>
@@ -78,9 +78,9 @@ const Menu = (props: MenuProps) => {
           )}
 
           {currentPage !== '/singup' && (
-            <Box w={85}>
-              <Link to="/sing">
-                <Button onClick={close}>
+            <Box w={130}>
+              <Link to="/signup">
+                <Button onClick={close} w="100%">
                   <Trans i18nKey="header.signup"></Trans>
                 </Button>
               </Link>

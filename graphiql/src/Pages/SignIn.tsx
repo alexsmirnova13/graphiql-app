@@ -18,31 +18,24 @@ const SignIn = () => {
   const [isValid, setIsValid] = useState(false);
   const [user, loading, error] = useAuthState(auth);
 
-  // useEffect(() => {
-  //   if (loading) {
-  //     // maybe trigger a loading screen
-  //     return;
-  //   }
-  //   if (user) navigate('/graphi');
-  // }, [user, loading]);
-
   const onFormSubmit = async (form: FormLogin) => {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, form.email, form.password);
       const accessToken = await userCredential.user.getIdToken();
+      const userName = localStorage.getItem('user');
       const newUser = {
-        name: 'Fix this',
+        name: userName!,
         email: form.email,
         id: userCredential.user.uid,
-        token: accessToken,
-        refreshToken: userCredential.user.refreshToken,
       };
       console.log(newUser);
+      localStorage.setItem('refreshToken', userCredential.user.refreshToken);
+      sessionStorage.setItem('accessToken', accessToken);
       dispatch(setUser(newUser));
       navigate('/graphi');
     } catch (error) {
       if (error instanceof Error) {
-        alert('User not found!');
+        alert('User not found! Check login or password!');
         navigate('/signup');
       }
     }

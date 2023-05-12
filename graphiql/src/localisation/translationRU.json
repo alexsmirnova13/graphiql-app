@@ -13,8 +13,8 @@
   },
   "header": {
     "welcome__link": "Драсьте",
-    "signin": "Регистрация",
-    "signup": "Вход"
+    "signin": "Вход",
+    "signup": "Регистрация"
   },
     "signup": {
         "title": "Регистрация",
