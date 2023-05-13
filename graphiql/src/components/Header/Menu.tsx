@@ -10,6 +10,10 @@ import {
 import { useTranslation, Trans } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
 import { IconSunHigh, IconMoon, IconHome2 } from '@tabler/icons-react';
+import Logout from './../Logout';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from './../../firebase';
+import AuthBtns from './../AuthBtns';
 
 const useStyles = createStyles({
   button: {
@@ -49,6 +53,8 @@ const Menu = (props: MenuProps) => {
   const currentPage = useLocation().pathname;
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const buttonType = scroll === 0 ? 'subtle' : 'filled';
+  const [user, loading, error] = useAuthState(auth);
+
   return (
     <>
       <div className={classes.home}>
@@ -69,27 +75,11 @@ const Menu = (props: MenuProps) => {
       </div>
 
       <Flex justify={'flex-start'} gap={10} wrap={'wrap'}>
-        <Flex gap={10} justify={'flex-start'}>
-          {currentPage !== '/singin' && (
-            <Box w={70}>
-              <Link to="/signin">
-                <Button onClick={close} variant={buttonType} w="100%">
-                  <Trans i18nKey="header.signin"></Trans>
-                </Button>
-              </Link>
-            </Box>
-          )}
-
-          {currentPage !== '/singup' && (
-            <Box w={130}>
-              <Link to="/signup">
-                <Button onClick={close} variant={buttonType} w="100%">
-                  <Trans i18nKey="header.signup"></Trans>
-                </Button>
-              </Link>
-            </Box>
-          )}
-        </Flex>
+        {user !== null ? (
+          <Logout btnType={buttonType} />
+        ) : (
+          <AuthBtns buttonType={buttonType} currentPage={currentPage}></AuthBtns>
+        )}
 
         <Flex gap={10} justify={'flex-end'} align={'center'}>
           <UnstyledButton

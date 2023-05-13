@@ -15,14 +15,16 @@
     "welcome__link": "Welcome",
     "signin": "Login",
     "signup": "Create account",
-    "home": "Home"
+    "home": "Home",
+    "logout": "Logout",
+    "user": "Logged in as "
   },
-    "form": {
-        "registration": "Registration",
-        "login": "Login",
-        "email": "Email:",
-        "password": "Password:",        
-        "signup": "Create account"
+  "form": {
+      "registration": "Registration",
+      "login": "Login",
+      "email": "Email:",
+      "password": "Password:",        
+      "signup": "Create account"
   },
   "formError": {
     "email": "Invalid email",
