@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import ButtonsPanel from '../Components/buttonsPanel';
-import DocsExplorer from '../Components/docsExplorer';
-import RequestSection from '../Components/requestSection';
-import ResultSection from '../Components/resultSection';
+import ButtonsPanel from '../Components/Graphi/buttonsPanel';
+import DocsExplorer from '../Components/Graphi/docsExplorer';
+import RequestSection from '../Components/Graphi/requestSection';
+import ResultSection from '../Components/Graphi/resultSection';
 import { Flex } from '@mantine/core';
 
 const Graphi = () => {

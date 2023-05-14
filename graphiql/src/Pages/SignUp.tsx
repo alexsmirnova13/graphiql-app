@@ -1,4 +1,4 @@
-import { Form } from './../components/Form';
+import { Form } from '../Components/Form';
 
 const SignUp = () => {
   return <Form title="Create account" handler="Registration"></Form>;

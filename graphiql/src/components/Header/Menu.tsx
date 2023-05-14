@@ -10,10 +10,10 @@ import {
 import { useTranslation, Trans } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
 import { IconSunHigh, IconMoon, IconHome2 } from '@tabler/icons-react';
-import Logout from './../Logout';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from './../../firebase';
-import AuthBtns from './../AuthBtns';
+import { auth } from '../../firebase';
+import AuthBtns from './AuthBtns';
+import Logout from './Logout';
 
 const useStyles = createStyles({
   button: {
@@ -76,9 +76,9 @@ const Menu = (props: MenuProps) => {
 
       <Flex justify={'flex-start'} gap={10} wrap={'wrap'}>
         {user !== null ? (
-          <Logout btnType={buttonType} />
+          <Logout buttonType={buttonType} />
         ) : (
-          <AuthBtns buttonType={buttonType} currentPage={currentPage}></AuthBtns>
+          <AuthBtns {...{ buttonType, currentPage }}></AuthBtns>
         )}
 
         <Flex gap={10} justify={'flex-end'} align={'center'}>
