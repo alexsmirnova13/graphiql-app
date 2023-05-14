@@ -1,4 +1,4 @@
-import { getAuth, sendPasswordResetEmail, signOut } from 'firebase/auth';
+import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
 
@@ -28,8 +28,8 @@ const sendPasswordReset = async (email: string) => {
   }
 };
 
-const logout = () => {
-  signOut(auth);
-};
+// const logout = () => {
+//   signOut(auth);
+// };
 
-export { auth, db, sendPasswordReset, logout };
+export { auth, db, sendPasswordReset };
