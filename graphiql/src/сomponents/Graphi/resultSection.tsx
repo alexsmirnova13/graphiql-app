@@ -7,7 +7,7 @@ const ResultSection = () => {
 
   return (
     <Flex w="50%" direction="column">
-      <Editor code={response} name="response" closed={false} codeH={632} readOnly={true} />
+      <Editor code={response} name="response" closed={false} codeH={636} readOnly={true} />
     </Flex>
   );
 };
