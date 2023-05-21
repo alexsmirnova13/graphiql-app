@@ -13,12 +13,14 @@ import {
 } from '@mantine/core';
 import { useState } from 'react';
 import SignUp from './Pages/SignUp';
-import { useAppSelector } from './store/hooks';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from './firebase';
 
 const App = () => {
-  const currentUser = useAppSelector((state) => state.user);
+  const [user, loading, error] = useAuthState(auth);
+
   const ReguireAuth = ({ children }: { children: React.ReactElement }) => {
-    return currentUser.email !== '' ? children : <Navigate to="/signin" />;
+    return !user ? children : <Navigate to="/signin" />;
   };
 
   const [colorScheme, setColorScheme] = useState<ColorScheme>('light');
