@@ -1,11 +1,12 @@
 import { TextInput, Button, Group, Box, PasswordInput } from '@mantine/core';
 import { isEmail, useForm } from '@mantine/form';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { useAppDispatch } from '../store/hooks';
 import { setUser } from '../store/userSlice';
 import { useNavigate } from 'react-router-dom';
-import { auth } from '../firebase';
+import { auth, logInWithEmailAndPassword, registerWithEmailAndPassword } from '../firebase';
 import { Trans } from 'react-i18next';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { useEffect } from 'react';
 
 type FormProps = {
   title: string;
@@ -37,25 +38,21 @@ export const Form = ({ title, handler }: FormProps) => {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [user, loading, error] = useAuthState(auth);
+
+  useEffect(() => {
+    if (loading) {
+      // maybe trigger a loading screen
+      return;
+    }
+    if (user) navigate('/graphi');
+  }, [user, loading, navigate]);
 
   const onFormSubmit = form.onSubmit(async (form) => {
-    const handler = title === 'Login' ? signInWithEmailAndPassword : createUserWithEmailAndPassword;
-    try {
-      const userCredential = await handler(auth, form.email, form.password);
-      const accessToken = await userCredential.user.getIdToken();
-      const newUser = {
-        email: form.email,
-        id: userCredential.user.uid,
-      };
-      console.log(newUser);
-      localStorage.setItem('refreshToken', userCredential.user.refreshToken);
-      sessionStorage.setItem('accessToken', accessToken);
-      dispatch(setUser(newUser));
-      navigate('/graphi');
-    } catch (error) {
-      if (error instanceof Error) {
-        alert('User not found! Check login or password!');
-      }
+    const handler = title === 'Login' ? logInWithEmailAndPassword : registerWithEmailAndPassword;
+    const user = await handler(form);
+    if (user) {
+      dispatch(setUser(user));
     }
   });
 
