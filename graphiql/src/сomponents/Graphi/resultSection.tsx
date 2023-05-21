@@ -1,12 +1,13 @@
 import { Flex } from '@mantine/core';
+import { useAppSelector } from '../../store/hooks';
+import Editor from './Editor';
 
 const ResultSection = () => {
+  const response = useAppSelector((state) => state.graphi.response);
+
   return (
-    <Flex w="50%" bg="violet" direction="column" justify="space-between">
-      <p>тут результат</p>
-      <div>
-        <p>тут возможно код респонс</p>
-      </div>
+    <Flex w="50%" direction="column">
+      <Editor code={response} name="response" closed={false} codeH={632} readOnly={true} />
     </Flex>
   );
 };

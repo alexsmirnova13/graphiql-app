@@ -20,11 +20,11 @@
     "user": "Logged in as "
   },
   "form": {
-      "registration": "Registration",
-      "login": "Login",
-      "email": "Email:",
-      "password": "Password:",        
-      "signup": "Create account"
+    "registration": "Registration",
+    "login": "Login",
+    "email": "Email:",
+    "password": "Password:",
+    "signup": "Create account"
   },
   "formError": {
     "email": "Invalid email",
@@ -41,5 +41,10 @@
     "h2": "We can not find that page",
     "p": "We are fairly sure that page used to be here, but seems to have gone missing. We do apologise on it is behalf.",
     "button": "Home"
-    }
+  },
+  "editor": {
+    "varibalse": "Variables editor",
+    "request": "Request editor",
+    "headers": "Headers editor"
+  }
 }
