@@ -9,7 +9,7 @@ type TEditors = {
 const initialState: TEditors = {
   headers: 'хедеры',
   variables: 'значения',
-  request: 'запросы',
+  request: `query { characters{results { name } } }`,
   response: 'ответ',
 };
 
@@ -28,12 +28,12 @@ const GraphiSlice = createSlice({
     setHeaders(state, action: PayloadAction<string>) {
       state.headers = action.payload;
     },
-    serResponce(state, action: PayloadAction<string>) {
+    setResponce(state, action: PayloadAction<string>) {
       state.response = action.payload;
     },
   },
 });
 
-export const { setHeaders, setRequest, setVaribalse } = GraphiSlice.actions;
+export const { setHeaders, setRequest, setVaribalse, setResponce } = GraphiSlice.actions;
 
 export default GraphiSlice.reducer;

@@ -45,7 +45,6 @@
   "editor": {
     "varibalse": "Variables editor",
     "request": "Request editor",
-    "headers": "Headers editor",
-    "run": "Run"
+    "headers": "Headers editor"
   }
 }
