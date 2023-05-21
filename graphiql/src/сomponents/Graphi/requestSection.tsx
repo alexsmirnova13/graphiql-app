@@ -5,6 +5,7 @@ import { setHeaders, setRequest, setVaribalse, setResponce } from '../../store/G
 import { IconPlayerPlay } from '@tabler/icons-react';
 import getGpahGLresponse from '../../helpers/getGpahGLresponse';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export type THeandler = (value: string) => {
   payload: string;
@@ -20,12 +21,17 @@ const RequestSection = () => {
   const setRequestCode = (value: string) => dispatch(setRequest(value));
   const setVaribalseCode = (value: string) => dispatch(setVaribalse(value));
   const setHeadersCode = (value: string) => dispatch(setHeaders(value));
+
   const submit = async () => {
     isLoadToglet(true);
     const response = await getGpahGLresponse(request, variables);
     dispatch(setResponce(response));
     isLoadToglet(false);
   };
+
+  const { t } = useTranslation();
+
+  setHeadersCode(t('editor.headersMessage'));
 
   return (
     <Flex w="50%" direction="column" pos={'relative'}>

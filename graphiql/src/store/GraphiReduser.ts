@@ -7,7 +7,7 @@ type TEditors = {
   response: string;
 };
 const initialState: TEditors = {
-  headers: 'хедеры',
+  headers: '',
   variables: `{
     "filter":
       {
