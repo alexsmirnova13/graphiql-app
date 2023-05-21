@@ -1,8 +1,10 @@
 import { Button, Flex } from '@mantine/core';
 import Editor from './Editor';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { setHeaders, setRequest, setVaribalse } from '../../store/GraphiReduser';
+import { setHeaders, setRequest, setVaribalse, setResponce } from '../../store/GraphiReduser';
 import { IconPlayerPlay } from '@tabler/icons-react';
+import getGpahGLresponse from '../../helpers/getGpahGLresponse';
+import { useState } from 'react';
 
 export type THeandler = (value: string) => {
   payload: string;
@@ -10,6 +12,7 @@ export type THeandler = (value: string) => {
 };
 
 const RequestSection = () => {
+  const [loading, isLoadToglet] = useState(false);
   const request = useAppSelector((state) => state.graphi.request);
   const variables = useAppSelector((state) => state.graphi.variables);
   const headers = useAppSelector((state) => state.graphi.headers);
@@ -17,6 +20,12 @@ const RequestSection = () => {
   const setRequestCode = (value: string) => dispatch(setRequest(value));
   const setVaribalseCode = (value: string) => dispatch(setVaribalse(value));
   const setHeadersCode = (value: string) => dispatch(setHeaders(value));
+  const submit = async () => {
+    isLoadToglet(true);
+    const response = await getGpahGLresponse(request, variables);
+    dispatch(setResponce(response));
+    isLoadToglet(false);
+  };
 
   return (
     <Flex w="50%" direction="column" pos={'relative'}>
@@ -31,8 +40,11 @@ const RequestSection = () => {
         top={60}
         left={'calc(100% - 55px)'}
         sx={{ zIndex: 999 }}
+        onClick={submit}
+        loading={loading}
+        loaderPosition="center"
       >
-        <IconPlayerPlay strokeWidth={2} />
+        {!loading && <IconPlayerPlay strokeWidth={2} />}
       </Button>
       <Editor code={request} setCode={setRequestCode} name="request" codeH={300} />
       <Editor code={variables} setCode={setVaribalseCode} name="varibalse" closed codeH={130} />
