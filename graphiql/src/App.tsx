@@ -3,7 +3,7 @@ import Welcome from './Pages/Welcome';
 import SignIn from './Pages/SignIn';
 import Graphi from './Pages/Graphi';
 import NotFound from './Pages/Page404/404';
-import Layout from './components/Layout';
+import Layout from './сomponents/Layout';
 import { withTranslation } from 'react-i18next';
 import {
   ButtonStylesParams,
