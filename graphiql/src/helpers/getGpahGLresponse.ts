@@ -5,7 +5,7 @@ const getGpahGLresponse = async (body: string, variables: string) => {
   try {
     const graphqlQuery = {
       query: `${body}`,
-      variables: {},
+      variables: JSON.parse(variables),
     };
     const headers = {
       'content-type': 'application/json',
@@ -22,8 +22,12 @@ const getGpahGLresponse = async (body: string, variables: string) => {
 
     console.log(response.data); // data
     return response.data;
-  } catch {
-    return 'Not found';
+  } catch (err) {
+    if (axios.isAxiosError(err)) {
+      return err.message;
+    } else {
+      return 'Not found';
+    }
   }
 };
 
