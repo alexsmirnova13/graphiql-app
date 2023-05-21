@@ -34,7 +34,6 @@ const RequestSection = () => {
         h={50}
         radius={25}
         variant="light"
-        //variant="subtle"
         compact
         pos={'absolute'}
         top={60}

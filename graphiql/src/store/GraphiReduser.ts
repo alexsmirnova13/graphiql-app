@@ -8,9 +8,20 @@ type TEditors = {
 };
 const initialState: TEditors = {
   headers: 'хедеры',
-  variables: 'значения',
-  request: `query { characters{results { name } } }`,
-  response: 'ответ',
+  variables: `{
+    "filter":
+      {
+      "name": "rick"
+      }
+    }`,
+  request: `query Characters($filter: FilterCharacter) {
+  characters(filter: $filter) {
+    results {
+      name
+    }
+  }
+}`,
+  response: '',
 };
 
 const GraphiSlice = createSlice({
