@@ -53,7 +53,7 @@ const Menu = (props: MenuProps) => {
   const currentPage = useLocation().pathname;
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const buttonType = scroll === 0 ? 'subtle' : 'filled';
-  const [user, loading, error] = useAuthState(auth);
+  const [user, _loading, _error] = useAuthState(auth);
 
   return (
     <>

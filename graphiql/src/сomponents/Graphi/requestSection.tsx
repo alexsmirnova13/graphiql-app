@@ -1,7 +1,8 @@
-import { Flex } from '@mantine/core';
+import { Button, Flex } from '@mantine/core';
 import Editor from './Editor';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { setHeaders, setRequest, setVaribalse } from '../../store/GraphiReduser';
+import { IconPlayerPlay } from '@tabler/icons-react';
 
 export type THeandler = (value: string) => {
   payload: string;
@@ -18,7 +19,21 @@ const RequestSection = () => {
   const setHeadersCode = (value: string) => dispatch(setHeaders(value));
 
   return (
-    <Flex w="50%" direction="column">
+    <Flex w="50%" direction="column" pos={'relative'}>
+      <Button
+        w={50}
+        h={50}
+        radius={25}
+        variant="light"
+        //variant="subtle"
+        compact
+        pos={'absolute'}
+        top={60}
+        left={'calc(100% - 55px)'}
+        sx={{ zIndex: 999 }}
+      >
+        <IconPlayerPlay strokeWidth={2} />
+      </Button>
       <Editor code={request} setCode={setRequestCode} name="request" codeH={300} />
       <Editor code={variables} setCode={setVaribalseCode} name="varibalse" closed codeH={130} />
       <Editor code={headers} setCode={setHeadersCode} name="headers" closed codeH={130} />
