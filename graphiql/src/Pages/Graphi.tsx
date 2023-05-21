@@ -10,6 +10,9 @@ const Graphi = () => {
   const handleClick = (bool: boolean) => {
     setIsOpened(bool);
   };
+  //const [variables, setVariables] = useState('variables');
+  //const [response, setResponse] = useState('response');
+  //const [headers, setHeaders] = useState('headers');
 
   return (
     <Flex direction="row" w="100%">
