@@ -6,19 +6,34 @@ import NotFound from './Pages/Page404/404';
 import Layout from './сomponents/Layout';
 import { withTranslation } from 'react-i18next';
 import {
+  Alert,
   ButtonStylesParams,
   ColorScheme,
   ColorSchemeProvider,
+  Loader,
   MantineProvider,
 } from '@mantine/core';
+import { IconAlertCircle } from '@tabler/icons-react';
 import { useState } from 'react';
 import SignUp from './Pages/SignUp';
-import { useAppSelector } from './store/hooks';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from './firebase';
 
 const App = () => {
-  const currentUser = useAppSelector((state) => state.user);
+  const [user, loading, error] = useAuthState(auth);
+
   const ReguireAuth = ({ children }: { children: React.ReactElement }) => {
-    return currentUser.email !== '' ? children : <Navigate to="/signin" />;
+    if (loading) {
+      return <Loader />;
+    }
+    if (error) {
+      return (
+        <Alert icon={<IconAlertCircle size="1rem" />} title="Attention!" color="red">
+          {error.message}
+        </Alert>
+      );
+    }
+    return user ? children : <Navigate to="/signin" />;
   };
 
   const [colorScheme, setColorScheme] = useState<ColorScheme>('light');

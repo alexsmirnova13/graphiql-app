@@ -8,12 +8,14 @@ import {
   Box,
 } from '@mantine/core';
 import { useTranslation, Trans } from 'react-i18next';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { IconSunHigh, IconMoon, IconHome2 } from '@tabler/icons-react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from '../../firebase';
+import { auth, db } from '../../firebase';
 import AuthBtns from './AuthBtns';
 import Logout from './Logout';
+import { useEffect, useState } from 'react';
+import { query, collection, getDocs, where } from 'firebase/firestore';
 
 const useStyles = createStyles({
   button: {
@@ -53,7 +55,25 @@ const Menu = (props: MenuProps) => {
   const currentPage = useLocation().pathname;
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const buttonType = scroll === 0 ? 'subtle' : 'filled';
-  const [user, _loading, _error] = useAuthState(auth);
+  const [user, loading, error] = useAuthState(auth);
+  const [name, setName] = useState('');
+  const navigate = useNavigate();
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        const q = query(collection(db, 'users'), where('uid', '==', user?.uid));
+        const doc = await getDocs(q);
+        const data = doc.docs[0].data();
+        console.log(data);
+        setName(data.email);
+      } catch (err) {
+        alert('An error occured while fetching user data');
+      }
+    };
+    if (loading) return;
+    if (!user) return navigate('/');
+    getUser();
+  }, [user, loading]);
 
   return (
     <>
@@ -76,7 +96,7 @@ const Menu = (props: MenuProps) => {
 
       <Flex justify={'flex-start'} gap={10} wrap={'wrap'}>
         {user !== null ? (
-          <Logout buttonType={buttonType} />
+          <Logout buttonType={buttonType} name={name} error={error} loading={loading} />
         ) : (
           <AuthBtns {...{ buttonType, currentPage }}></AuthBtns>
         )}
