@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Text, UnstyledButton, Group, Avatar } from '@mantine/core';
+import { Box, Button, Flex, Text, UnstyledButton, Group } from '@mantine/core';
 import { Trans } from 'react-i18next';
 import { signOut } from 'firebase/auth';
 import { auth } from '../../firebase';
@@ -9,6 +9,8 @@ import { removeUser } from '../../store/userSlice';
 type LogoutProps = {
   buttonType: 'filled' | 'subtle';
   name: string;
+  error: Error | undefined;
+  loading: boolean;
 };
 
 const Logout = (props: LogoutProps) => {
@@ -25,7 +27,6 @@ const Logout = (props: LogoutProps) => {
     <Flex gap={10} justify={'flex-start'}>
       <UnstyledButton>
         <Group>
-          {' '}
           <div>
             <Text size="s"> {name} </Text>
           </div>

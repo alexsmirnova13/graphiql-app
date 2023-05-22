@@ -3,10 +3,9 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
-  signOut,
 } from 'firebase/auth';
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
-import { initializeApp } from 'firebase/app';
+import { FirebaseError, initializeApp } from 'firebase/app';
 import { FormType, UserState } from 'helpers/types';
 
 const firebaseConfig = {
@@ -65,8 +64,8 @@ const registerWithEmailAndPassword = async ({
     };
     return newUser;
   } catch (err) {
-    if (err instanceof Error) {
-      alert('Something went wrong!');
+    if (err instanceof FirebaseError) {
+      alert('Something went wrong! Maybe user with this email exists! Please try Login!');
     }
   }
 };
@@ -76,7 +75,7 @@ const sendPasswordReset = async (email: string) => {
     await sendPasswordResetEmail(auth, email);
     alert('Password reset link sent!');
   } catch (err) {
-    if (err instanceof Error) {
+    if (err instanceof FirebaseError) {
       console.error(err);
       alert(err.message);
     }

@@ -1,4 +1,4 @@
-import { TextInput, Button, Group, Box, PasswordInput } from '@mantine/core';
+import { TextInput, Button, Group, Box, PasswordInput, Loader, Alert } from '@mantine/core';
 import { isEmail, useForm } from '@mantine/form';
 import { useAppDispatch } from '../store/hooks';
 import { setUser } from '../store/userSlice';
@@ -7,6 +7,7 @@ import { auth, logInWithEmailAndPassword, registerWithEmailAndPassword } from '.
 import { Trans } from 'react-i18next';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useEffect } from 'react';
+import { IconAlertCircle } from '@tabler/icons-react';
 
 type FormProps = {
   title: string;
@@ -45,8 +46,9 @@ export const Form = ({ title, handler }: FormProps) => {
       // maybe trigger a loading screen
       return;
     }
+    if (error) return;
     if (user) navigate('/graphi');
-  }, [user, loading, navigate]);
+  }, [user, loading, error, navigate]);
 
   const onFormSubmit = form.onSubmit(async (form) => {
     const handler = title === 'Login' ? logInWithEmailAndPassword : registerWithEmailAndPassword;
@@ -60,30 +62,38 @@ export const Form = ({ title, handler }: FormProps) => {
   const h3Title = title === 'Login' ? 'form.login' : 'form.registration';
 
   return (
-    <Box maw={300} mx="auto">
-      <h3>
-        <Trans i18nKey={h3Title} />
-      </h3>
-      <form onSubmit={onFormSubmit}>
-        <TextInput
-          withAsterisk
-          label={<Trans i18nKey="form.email" />}
-          placeholder="your@email.com"
-          {...form.getInputProps('email')}
-        />
-        <PasswordInput
-          withAsterisk
-          label={<Trans i18nKey="form.password" />}
-          placeholder="********"
-          {...form.getInputProps('password')}
-        />
+    <>
+      {loading && <Loader />}
+      {error && (
+        <Alert icon={<IconAlertCircle size="1rem" />} title="Attention!" color="red">
+          {error.message}
+        </Alert>
+      )}
+      <Box maw={300} mx="auto">
+        <h3>
+          <Trans i18nKey={h3Title} />
+        </h3>
+        <form onSubmit={onFormSubmit}>
+          <TextInput
+            withAsterisk
+            label={<Trans i18nKey="form.email" />}
+            placeholder="your@email.com"
+            {...form.getInputProps('email')}
+          />
+          <PasswordInput
+            withAsterisk
+            label={<Trans i18nKey="form.password" />}
+            placeholder="********"
+            {...form.getInputProps('password')}
+          />
 
-        <Group position="right" mt="md">
-          <Button type="submit">
-            <Trans i18nKey={btn} />
-          </Button>
-        </Group>
-      </form>
-    </Box>
+          <Group position="right" mt="md">
+            <Button type="submit">
+              <Trans i18nKey={btn} />
+            </Button>
+          </Group>
+        </form>
+      </Box>
+    </>
   );
 };
