@@ -44,7 +44,7 @@ const RequestSection = () => {
         pos={'absolute'}
         top={60}
         left={'calc(100% - 55px)'}
-        sx={{ zIndex: 999 }}
+        sx={{ zIndex: 2 }}
         onClick={submit}
         loading={loading}
         loaderPosition="center"
