@@ -55,21 +55,26 @@ const Menu = (props: MenuProps) => {
   const currentPage = useLocation().pathname;
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const buttonType = scroll === 0 ? 'subtle' : 'filled';
+  const [user, _loading, _error] = useAuthState(auth);
+
   const [user, loading, error] = useAuthState(auth);
   const [name, setName] = useState('');
   const navigate = useNavigate();
+
+  const getUser = async () => {
+    try {
+      const q = query(collection(db, 'users'), where('uid', '==', user?.uid));
+      const doc = await getDocs(q);
+      const data = doc.docs[0].data();
+      console.log(data);
+      setName(data.email);
+    } catch (err) {
+      console.error(err);
+      alert('An error occured while fetching user data');
+    }
+  };
+
   useEffect(() => {
-    const getUser = async () => {
-      try {
-        const q = query(collection(db, 'users'), where('uid', '==', user?.uid));
-        const doc = await getDocs(q);
-        const data = doc.docs[0].data();
-        console.log(data);
-        setName(data.email);
-      } catch (err) {
-        alert('An error occured while fetching user data');
-      }
-    };
     if (loading) return;
     if (!user) return navigate('/');
     getUser();
