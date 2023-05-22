@@ -5,7 +5,7 @@ const getGpahGLresponse = async (body: string, variables: string) => {
   try {
     const graphqlQuery = {
       query: `${body}`,
-      variables: JSON.parse(variables),
+      variables: JSON.parse(variables === '' ? '{}' : variables),
     };
     const headers = {
       'content-type': 'application/json',
