@@ -7,7 +7,3 @@ export type UserState = {
   id: string;
   email: string;
 };
-
-export type UserExtension = {
-  token: string;
-};

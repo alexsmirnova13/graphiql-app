@@ -7,6 +7,7 @@ import Layout from './сomponents/Layout';
 import { withTranslation } from 'react-i18next';
 import {
   Alert,
+  Box,
   ButtonStylesParams,
   ColorScheme,
   ColorSchemeProvider,
@@ -24,7 +25,11 @@ const App = () => {
 
   const ReguireAuth = ({ children }: { children: React.ReactElement }) => {
     if (loading) {
-      return <Loader />;
+      return (
+        <Box m="auto" ta="center" pt={250}>
+          <Loader size="xl" />
+        </Box>
+      );
     }
     if (error) {
       return (

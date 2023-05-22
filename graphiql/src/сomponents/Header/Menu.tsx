@@ -66,7 +66,6 @@ const Menu = (props: MenuProps) => {
         const q = query(collection(db, 'users'), where('uid', '==', user?.uid));
         const doc = await getDocs(q);
         const data = doc.docs[0].data();
-        console.log(data);
         setName(data.email);
       } catch (err) {
         alert('An error occured while fetching user data');

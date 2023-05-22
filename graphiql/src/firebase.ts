@@ -38,8 +38,14 @@ const logInWithEmailAndPassword = async ({
     };
     return newUser;
   } catch (err) {
-    if (err instanceof Error) {
-      alert('User not found! Check login or password!');
+    if (err instanceof FirebaseError) {
+      if (err.code == 'auth/invalid-email') {
+        throw Error('Invalid email address');
+      } else if (err.code == 'auth/wrong-password') {
+        throw Error('Wrong password');
+      } else {
+        throw Error('User not found! Check login or password!');
+      }
     }
   }
 };
@@ -65,7 +71,11 @@ const registerWithEmailAndPassword = async ({
     return newUser;
   } catch (err) {
     if (err instanceof FirebaseError) {
-      alert('Something went wrong! Maybe user with this email exists! Please try Login!');
+      if (err.code == 'auth/email-already-in-use') {
+        throw Error('User with this email exists!');
+      } else {
+        throw Error('Something went wrong!');
+      }
     }
   }
 };
