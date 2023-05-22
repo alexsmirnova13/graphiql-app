@@ -15,7 +15,7 @@ const ButtonsPanel = ({ onButtonClick }: IButtonsPanelProps) => {
     onButtonClick(panelStatus);
   }, [panelStatus, onButtonClick]);
   return (
-    <Flex w={70} direction="column" bg="green" h={height}>
+    <Flex w={70} direction="column" h={height}>
       <Button onClick={openDocs}>туть</Button>
       <Button>сють</Button>
     </Flex>
