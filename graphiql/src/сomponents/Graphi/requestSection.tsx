@@ -34,7 +34,7 @@ const RequestSection = () => {
   setHeadersCode(t('editor.headersMessage'));
 
   return (
-    <Flex w="50%" direction="column" pos={'relative'}>
+    <Flex miw="50%" direction="column" pos={'relative'}>
       <Button
         w={50}
         h={50}

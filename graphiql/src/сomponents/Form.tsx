@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { auth, logInWithEmailAndPassword, registerWithEmailAndPassword } from '../firebase';
 import { Trans } from 'react-i18next';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { IconAlertCircle } from '@tabler/icons-react';
 
 type FormProps = {
@@ -40,6 +40,7 @@ export const Form = ({ title, handler }: FormProps) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [user, loading, error] = useAuthState(auth);
+  const [formError, setFormError] = useState('');
 
   useEffect(() => {
     if (loading) {
@@ -52,9 +53,18 @@ export const Form = ({ title, handler }: FormProps) => {
 
   const onFormSubmit = form.onSubmit(async (form) => {
     const handler = title === 'Login' ? logInWithEmailAndPassword : registerWithEmailAndPassword;
-    const user = await handler(form);
-    if (user) {
-      dispatch(setUser(user));
+    try {
+      const user = await handler(form);
+      if (user) {
+        dispatch(setUser(user));
+      }
+    } catch (err) {
+      if (err instanceof Error) {
+        setFormError(err.message);
+      }
+      setTimeout(() => {
+        setFormError('');
+      }, 3000);
     }
   });
 
@@ -63,12 +73,6 @@ export const Form = ({ title, handler }: FormProps) => {
 
   return (
     <>
-      {loading && <Loader />}
-      {error && (
-        <Alert icon={<IconAlertCircle size="1rem" />} title="Attention!" color="red">
-          {error.message}
-        </Alert>
-      )}
       <Box maw={300} mx="auto">
         <h3>
           <Trans i18nKey={h3Title} />
@@ -94,6 +98,19 @@ export const Form = ({ title, handler }: FormProps) => {
           </Group>
         </form>
       </Box>
+      {loading && <Loader />}
+      {formError && (
+        <Alert
+          w={300}
+          mx="auto"
+          mt={15}
+          icon={<IconAlertCircle size="1rem" />}
+          title="Attention!"
+          color="red"
+        >
+          {formError}
+        </Alert>
+      )}
     </>
   );
 };

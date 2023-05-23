@@ -2,9 +2,10 @@ import { Flex, Input } from '@mantine/core';
 import { IconSearch } from '@tabler/icons-react';
 
 const DocsExplorer = () => {
+  const weigth = 'calc(30vw - 2rem)';
   return (
-    <Flex w={350} direction="column">
-      <Input icon={<IconSearch size="1rem" />} placeholder="search" />
+    <Flex w={weigth} direction="column">
+      <Input icon={<IconSearch size="1rem" />} placeholder="search" w={100} />
       <p>тут инфа разная</p>
     </Flex>
   );
