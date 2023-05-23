@@ -1,9 +1,9 @@
+import { useState } from 'react';
 import ButtonsPanel from '../сomponents/Graphi/buttonsPanel';
 import DocsExplorer from '../сomponents/Graphi/docsExplorer';
 import RequestSection from '../сomponents/Graphi/requestSection';
 import ResultSection from '../сomponents/Graphi/resultSection';
-import { Flex, Drawer, createStyles } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
+import { Flex, createStyles } from '@mantine/core';
 
 const useStyles = createStyles({
   large: {
@@ -21,22 +21,18 @@ const useStyles = createStyles({
 });
 
 const Graphi = () => {
-  const [opened, { open, close }] = useDisclosure(false);
+  const [isOpened, setIsOpened] = useState(false);
   const { classes } = useStyles();
+  const handleClick = (bool: boolean) => {
+    setIsOpened(bool);
+  };
 
   return (
     <Flex w="100%">
-      <>
-        <Drawer
-          opened={opened}
-          onClose={close}
-          title="Documentation"
-          overlayProps={{ opacity: 0.5, blur: 4 }}
-        >
-          {opened && <DocsExplorer />}
-        </Drawer>
-        <ButtonsPanel onButtonClick={open} />
-      </>
+      <Flex direction="row">
+        <ButtonsPanel onButtonClick={handleClick} />
+        {isOpened && <DocsExplorer />}
+      </Flex>
 
       <Flex w="100%" className={classes.middle}>
         <RequestSection />

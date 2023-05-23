@@ -5,7 +5,7 @@ const DocsExplorer = () => {
   const weigth = 'calc(30vw - 2rem)';
   return (
     <Flex w={weigth} direction="column">
-      <Input icon={<IconSearch size="1rem" />} placeholder="search" />
+      <Input icon={<IconSearch size="1rem" />} placeholder="search" w={100} />
       <p>тут инфа разная</p>
     </Flex>
   );
