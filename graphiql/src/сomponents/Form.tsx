@@ -40,7 +40,7 @@ export const Form = ({ title, handler }: FormProps) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [user, loading, error] = useAuthState(auth);
-  const [formError, setFormError] = useState('');
+  const [formError, setFormError] = useState<JSX.Element | null>(null);
 
   useEffect(() => {
     if (loading) {
@@ -60,10 +60,22 @@ export const Form = ({ title, handler }: FormProps) => {
       }
     } catch (err) {
       if (err instanceof Error) {
-        setFormError(err.message);
+        const error =
+          err.message === 'Invalid email address' ? (
+            <Trans i18nKey={'formError.wrEmail'} />
+          ) : err.message === 'Wrong password' ? (
+            <Trans i18nKey={'formError.wrPassword'} />
+          ) : err.message === 'User not found! Check login or password!' ? (
+            <Trans i18nKey={'formError.noUser'} />
+          ) : err.message === 'User with this email exists!' ? (
+            <Trans i18nKey={'formError.exitsUser'} />
+          ) : (
+            <Trans i18nKey={'formError.generelError'} />
+          );
+        setFormError(error);
       }
       setTimeout(() => {
-        setFormError('');
+        setFormError(null);
       }, 3000);
     }
   });
@@ -105,7 +117,7 @@ export const Form = ({ title, handler }: FormProps) => {
           mx="auto"
           mt={15}
           icon={<IconAlertCircle size="1rem" />}
-          title="Attention!"
+          title={<Trans i18nKey="formError.alert" />}
           color="red"
         >
           {formError}

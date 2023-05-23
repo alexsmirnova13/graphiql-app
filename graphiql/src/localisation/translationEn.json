@@ -29,7 +29,12 @@
   "formError": {
     "email": "Invalid email",
     "password": "Password must be at least 8 characters long and contain at least one letter, one digit, and one special character",
-    "alert": "User not found! Check login or password!"
+    "alert": "Attention!",
+    "noUser": "User not found! Check login or password!",
+    "wrEmail": "Invalid email address",
+    "wrPassword": "Wrong password",
+    "exitsUser": "User with this email exists!",
+    "generelError": "Something went wrong!"
   },
   "footer": {
     "andrei": "Andrei",
