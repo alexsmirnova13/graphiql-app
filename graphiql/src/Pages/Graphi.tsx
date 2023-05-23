@@ -6,16 +6,15 @@ import ResultSection from '../сomponents/Graphi/resultSection';
 import { Flex, createStyles } from '@mantine/core';
 
 const useStyles = createStyles({
-  large: {
-    ['@media (min-width: 1100px)']: {
-      flexDirection: 'row',
-    },
-  },
+  // large: {
+  //   ['@media (min-width: 1100px)']: {
+  //     flexDirection: 'row',
+  //   },
+  // },
   middle: {
     flex: '1',
-    ['@media (max-width: 1100px)']: {
+    ['@media (max-width: 1025px)']: {
       flexDirection: 'column',
-      width: 'calc(100vw - 5rem)',
     },
   },
 });
@@ -28,7 +27,7 @@ const Graphi = () => {
   };
 
   return (
-    <Flex w="100%">
+    <Flex w="100%" className={classes.middle}>
       <Flex direction="row">
         <ButtonsPanel onButtonClick={handleClick} />
         {isOpened && <DocsExplorer />}

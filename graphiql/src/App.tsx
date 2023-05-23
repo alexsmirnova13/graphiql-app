@@ -72,6 +72,9 @@ const App = () => {
             '.mantine-1tea8o2': {
               minHeight: 'calc(100vh - 90px)',
             },
+            '.cm-content': {
+              fontSize: '14px',
+            },
             body: {
               '::-webkit-scrollbar': {
                 width: '0',

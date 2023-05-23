@@ -15,10 +15,9 @@ const ButtonsPanel = ({ onButtonClick }: IButtonsPanelProps) => {
     onButtonClick(panelStatus);
   }, [panelStatus, onButtonClick]);
   return (
-    <Flex w={70} direction="column" h={height}>
-      <Button onClick={openDocs}>Doc</Button>
-      {/* <Button>сють</Button> */}
-    </Flex>
+    // <Flex w={70} direction="column" h={height}>
+    <Button onClick={openDocs}>Doc</Button>
+    // </Flex>
   );
 };
 

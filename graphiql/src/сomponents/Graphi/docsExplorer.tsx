@@ -1,11 +1,20 @@
-import { Flex, Input } from '@mantine/core';
+import { Flex, Input, createStyles } from '@mantine/core';
 import { IconSearch } from '@tabler/icons-react';
 
+const useStyles = createStyles({
+  middle: {
+    flex: '1',
+    ['@media (max-width: 1100px)']: {
+      width: '100%',
+    },
+  },
+});
+
 const DocsExplorer = () => {
-  const weigth = 'calc(30vw - 2rem)';
+  const { classes } = useStyles();
   return (
-    <Flex w={weigth} direction="column">
-      <Input icon={<IconSearch size="1rem" />} placeholder="search" w={100} />
+    <Flex w="200px" direction="column" gap="sm" className={classes.middle}>
+      <Input icon={<IconSearch size="1rem" />} placeholder="search" maw="300px" />
       <p>тут инфа разная</p>
     </Flex>
   );

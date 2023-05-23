@@ -1,4 +1,4 @@
-import { Button, Flex } from '@mantine/core';
+import { Button, Flex, createStyles } from '@mantine/core';
 import Editor from './Editor';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { setHeaders, setRequest, setVaribalse, setResponce } from '../../store/GraphiReduser';
@@ -12,6 +12,18 @@ export type THeandler = (value: string) => {
   type: string;
 };
 
+const useStyles = createStyles({
+  small: {
+    flex: '1',
+    ['@media (max-width: 600px)']: {
+      width: '40px',
+      height: '40px',
+      border: '1px solid #228be6',
+      top: '0px',
+    },
+  },
+});
+
 const RequestSection = () => {
   const [loading, isLoadToglet] = useState(false);
   const request = useAppSelector((state) => state.graphi.request);
@@ -21,6 +33,7 @@ const RequestSection = () => {
   const setRequestCode = (value: string) => dispatch(setRequest(value));
   const setVaribalseCode = (value: string) => dispatch(setVaribalse(value));
   const setHeadersCode = (value: string) => dispatch(setHeaders(value));
+  const { classes } = useStyles();
 
   const submit = async () => {
     isLoadToglet(true);
@@ -43,11 +56,12 @@ const RequestSection = () => {
         compact
         pos={'absolute'}
         top={60}
-        left={'calc(100% - 55px)'}
-        sx={{ zIndex: 2 }}
+        left={'calc(100% - 80px)'}
+        sx={{ zIndex: 1 }}
         onClick={submit}
         loading={loading}
         loaderPosition="center"
+        className={classes.small}
       >
         {!loading && <IconPlayerPlay strokeWidth={2} />}
       </Button>
