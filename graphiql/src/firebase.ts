@@ -29,9 +29,10 @@ const logInWithEmailAndPassword = async ({
   try {
     const res = await signInWithEmailAndPassword(auth, email, password);
     const user = res.user;
-    const accessToken = await user.getIdToken();
+    const { expirationTime, token } = await user.getIdTokenResult();
     localStorage.setItem('refreshToken', user.refreshToken);
-    localStorage.setItem('accessToken', accessToken);
+    localStorage.setItem('accessToken', token);
+    localStorage.setItem('expirationTime', expirationTime);
     const newUser = {
       email: email,
       id: user.uid,
@@ -61,9 +62,10 @@ const registerWithEmailAndPassword = async ({
       authProvider: 'local',
       email,
     });
-    const accessToken = await user.getIdToken();
+    const { expirationTime, token } = await user.getIdTokenResult();
     localStorage.setItem('refreshToken', user.refreshToken);
-    localStorage.setItem('accessToken', accessToken);
+    localStorage.setItem('accessToken', token);
+    localStorage.setItem('expirationTime', expirationTime);
     const newUser = {
       email: email,
       id: user.uid,
