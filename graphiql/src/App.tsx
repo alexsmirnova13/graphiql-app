@@ -6,11 +6,15 @@ import NotFound from './Pages/Page404/404';
 import Layout from './сomponents/Layout';
 import { withTranslation } from 'react-i18next';
 import {
+  Alert,
+  Box,
   ButtonStylesParams,
   ColorScheme,
   ColorSchemeProvider,
+  Loader,
   MantineProvider,
 } from '@mantine/core';
+import { IconAlertCircle } from '@tabler/icons-react';
 import { useState } from 'react';
 import SignUp from './Pages/SignUp';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -20,7 +24,21 @@ const App = () => {
   const [user, loading, error] = useAuthState(auth);
 
   const ReguireAuth = ({ children }: { children: React.ReactElement }) => {
-    return !user ? children : <Navigate to="/signin" />;
+    if (loading) {
+      return (
+        <Box m="auto" ta="center" pt={250}>
+          <Loader size="xl" />
+        </Box>
+      );
+    }
+    if (error) {
+      return (
+        <Alert icon={<IconAlertCircle size="1rem" />} title="Attention!" color="red">
+          {error.message}
+        </Alert>
+      );
+    }
+    return user ? children : <Navigate to="/signin" />;
   };
 
   const [colorScheme, setColorScheme] = useState<ColorScheme>('light');
@@ -53,6 +71,9 @@ const App = () => {
           globalStyles: () => ({
             '.mantine-1tea8o2': {
               minHeight: 'calc(100vh - 90px)',
+            },
+            '.cm-content': {
+              fontSize: '14px',
             },
             body: {
               '::-webkit-scrollbar': {

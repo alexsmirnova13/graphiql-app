@@ -60,20 +60,17 @@ const Menu = (props: MenuProps) => {
   const [name, setName] = useState('');
   const navigate = useNavigate();
 
-  const getUser = async () => {
-    try {
-      const q = query(collection(db, 'users'), where('uid', '==', user?.uid));
-      const doc = await getDocs(q);
-      const data = doc.docs[0].data();
-      console.log(data);
-      setName(data.email);
-    } catch (err) {
-      console.error(err);
-      alert('An error occured while fetching user data');
-    }
-  };
-
   useEffect(() => {
+    const getUser = async () => {
+      try {
+        const q = query(collection(db, 'users'), where('uid', '==', user?.uid));
+        const doc = await getDocs(q);
+        const data = doc.docs[0].data();
+        setName(data.email);
+      } catch (err) {
+        alert('An error occured while fetching user data');
+      }
+    };
     if (loading) return;
     if (!user) return navigate('/');
     getUser();
@@ -100,7 +97,7 @@ const Menu = (props: MenuProps) => {
 
       <Flex justify={'flex-start'} gap={10} wrap={'wrap'}>
         {user !== null ? (
-          <Logout buttonType={buttonType} name={name} />
+          <Logout buttonType={buttonType} name={name} error={error} loading={loading} />
         ) : (
           <AuthBtns {...{ buttonType, currentPage }}></AuthBtns>
         )}

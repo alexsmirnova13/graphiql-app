@@ -3,10 +3,9 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
-  signOut,
 } from 'firebase/auth';
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
-import { initializeApp } from 'firebase/app';
+import { FirebaseError, initializeApp } from 'firebase/app';
 import { FormType, UserState } from 'helpers/types';
 
 const firebaseConfig = {
@@ -39,8 +38,14 @@ const logInWithEmailAndPassword = async ({
     };
     return newUser;
   } catch (err) {
-    if (err instanceof Error) {
-      alert('User not found! Check login or password!');
+    if (err instanceof FirebaseError) {
+      if (err.code == 'auth/invalid-email') {
+        throw Error('Invalid email address');
+      } else if (err.code == 'auth/wrong-password') {
+        throw Error('Wrong password');
+      } else {
+        throw Error('User not found! Check login or password!');
+      }
     }
   }
 };
@@ -65,8 +70,12 @@ const registerWithEmailAndPassword = async ({
     };
     return newUser;
   } catch (err) {
-    if (err instanceof Error) {
-      alert('Something went wrong!');
+    if (err instanceof FirebaseError) {
+      if (err.code == 'auth/email-already-in-use') {
+        throw Error('User with this email exists!');
+      } else {
+        throw Error('Something went wrong!');
+      }
     }
   }
 };
@@ -76,7 +85,7 @@ const sendPasswordReset = async (email: string) => {
     await sendPasswordResetEmail(auth, email);
     alert('Password reset link sent!');
   } catch (err) {
-    if (err instanceof Error) {
+    if (err instanceof FirebaseError) {
       console.error(err);
       alert(err.message);
     }
