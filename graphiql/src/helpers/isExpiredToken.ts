@@ -1,5 +1,4 @@
-import { signOut } from 'firebase/auth';
-import { auth } from '../firebase';
+import { logout } from '../firebase';
 
 export const isExpiredToken = () => {
   const time = localStorage.getItem('expirationTime')!;
@@ -7,8 +6,7 @@ export const isExpiredToken = () => {
   const currentTimestamp = new Date().getTime();
   const difference = expirationTime - currentTimestamp;
   setTimeout(() => {
-    signOut(auth);
-    localStorage.removeItem('accessToken');
+    logout();
     window.location.href = '/';
   }, difference);
 };

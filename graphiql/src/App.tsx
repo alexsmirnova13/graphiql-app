@@ -19,6 +19,7 @@ import { useState } from 'react';
 import SignUp from './Pages/SignUp';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from './firebase';
+import ErrorBoundary from './сomponents/ErrorBoundary';
 
 const App = () => {
   const [user, loading, error] = useAuthState(auth);
@@ -85,22 +86,24 @@ const App = () => {
         withGlobalStyles
         withNormalizeCSS
       >
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Welcome />} />
-            <Route path="/signin" element={<SignIn />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route
-              path="/graphi"
-              element={
-                <ReguireAuth>
-                  <Graphi />
-                </ReguireAuth>
-              }
-            />
-          </Route>
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <ErrorBoundary>
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<Welcome />} />
+              <Route path="/signin" element={<SignIn />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route
+                path="/graphi"
+                element={
+                  <ReguireAuth>
+                    <Graphi />
+                  </ReguireAuth>
+                }
+              />
+            </Route>
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </ErrorBoundary>
       </MantineProvider>
     </ColorSchemeProvider>
   );

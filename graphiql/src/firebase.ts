@@ -3,6 +3,7 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
+  signOut,
 } from 'firebase/auth';
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
 import { FirebaseError, initializeApp } from 'firebase/app';
@@ -88,10 +89,21 @@ const sendPasswordReset = async (email: string) => {
     alert('Password reset link sent!');
   } catch (err) {
     if (err instanceof FirebaseError) {
-      console.error(err);
       alert(err.message);
     }
   }
 };
 
-export { auth, db, logInWithEmailAndPassword, registerWithEmailAndPassword, sendPasswordReset };
+const logout = () => {
+  signOut(auth);
+  localStorage.removeItem('accessToken');
+};
+
+export {
+  auth,
+  db,
+  logInWithEmailAndPassword,
+  registerWithEmailAndPassword,
+  sendPasswordReset,
+  logout,
+};

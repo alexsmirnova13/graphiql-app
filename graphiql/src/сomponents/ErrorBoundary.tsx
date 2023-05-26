@@ -36,7 +36,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
         <>
           <h3>Something went wrong.</h3>
           <Button variant="outline" onClick={() => <Navigate to="/" />}>
-            Go to main
+            Go to welcome page!
           </Button>
         </>
       );

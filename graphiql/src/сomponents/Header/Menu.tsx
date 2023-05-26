@@ -11,12 +11,11 @@ import { useTranslation, Trans } from 'react-i18next';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { IconSunHigh, IconMoon, IconHome2 } from '@tabler/icons-react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth, db } from '../../firebase';
+import { auth, db, logout } from '../../firebase';
 import AuthBtns from './AuthBtns';
 import Logout from './Logout';
 import { useEffect, useState } from 'react';
 import { query, collection, getDocs, where } from 'firebase/firestore';
-import ErrorBoundary from '../ErrorBoundary';
 
 const useStyles = createStyles({
   button: {
@@ -72,7 +71,12 @@ const Menu = (props: MenuProps) => {
       } catch (err) {
         if (err instanceof Error) {
           if (err) setDbError(<Trans i18nKey={'formError.dbError'} />);
+          navigate('/');
+          logout();
         }
+        setTimeout(() => {
+          setDbError(null);
+        }, 3000);
       }
     };
     if (loading) return;
@@ -82,59 +86,57 @@ const Menu = (props: MenuProps) => {
 
   return (
     <>
-      <ErrorBoundary>
-        <div className={classes.home}>
-          {currentPage !== '/' && (
-            <Box component={Link} to="/">
-              <Button
-                variant={buttonType}
-                color="#4090bf"
-                leftIcon={
-                  <IconHome2 size={25} color={scroll === 0 ? '#4090bf' : '#fff'} strokeWidth={1} />
-                }
-                onClick={close}
-              >
-                <Trans i18nKey="header.home" />
-              </Button>
-            </Box>
-          )}
-        </div>
-
-        <Flex justify={'flex-start'} gap={10} wrap={'wrap'}>
-          {user !== null ? (
-            <Logout
-              buttonType={buttonType}
-              name={name}
-              error={error}
-              errorDB={dbError}
-              loading={loading}
-            />
-          ) : (
-            <AuthBtns {...{ buttonType, currentPage }}></AuthBtns>
-          )}
-
-          <Flex gap={10} justify={'flex-end'} align={'center'}>
-            <UnstyledButton
-              className={classes.button}
-              color="blue"
-              onClick={() => changeLanguage(i18n.language === 'ru' ? 'en' : 'ru')}
-              h={30}
-              w={30}
-              ta={'center'}
+      <div className={classes.home}>
+        {currentPage !== '/' && (
+          <Box component={Link} to="/">
+            <Button
+              variant={buttonType}
+              color="#4090bf"
+              leftIcon={
+                <IconHome2 size={25} color={scroll === 0 ? '#4090bf' : '#fff'} strokeWidth={1} />
+              }
+              onClick={close}
             >
-              {i18n.language.toUpperCase()}
-            </UnstyledButton>
+              <Trans i18nKey="header.home" />
+            </Button>
+          </Box>
+        )}
+      </div>
 
-            <Switch
-              checked={colorScheme === 'dark'}
-              onChange={() => toggleColorScheme()}
-              size="lg"
-              onLabel={<IconSunHigh color={'#fcfc03'} size="1.25rem" stroke={1.5} />}
-              offLabel={<IconMoon size="1.25rem" stroke={1.5} />}
-            />
-          </Flex>
+      <Flex justify={'flex-start'} gap={10} wrap={'wrap'}>
+        {user !== null ? (
+          <Logout
+            buttonType={buttonType}
+            name={name}
+            error={error}
+            errorDB={dbError}
+            loading={loading}
+          />
+        ) : (
+          <AuthBtns {...{ buttonType, currentPage }}></AuthBtns>
+        )}
+
+        <Flex gap={10} justify={'flex-end'} align={'center'}>
+          <UnstyledButton
+            className={classes.button}
+            color="blue"
+            onClick={() => changeLanguage(i18n.language === 'ru' ? 'en' : 'ru')}
+            h={30}
+            w={30}
+            ta={'center'}
+          >
+            {i18n.language.toUpperCase()}
+          </UnstyledButton>
+
+          <Switch
+            checked={colorScheme === 'dark'}
+            onChange={() => toggleColorScheme()}
+            size="lg"
+            onLabel={<IconSunHigh color={'#fcfc03'} size="1.25rem" stroke={1.5} />}
+            offLabel={<IconMoon size="1.25rem" stroke={1.5} />}
+          />
         </Flex>
-      </ErrorBoundary>
+      </Flex>
     </>
   );
 };
