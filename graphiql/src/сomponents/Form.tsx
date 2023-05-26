@@ -9,6 +9,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useEffect, useState } from 'react';
 import { IconAlertCircle } from '@tabler/icons-react';
 import { isExpiredToken } from '../helpers/isExpiredToken';
+import ErrorBoundary from './ErrorBoundary';
 
 type FormProps = {
   title: string;
@@ -87,44 +88,46 @@ export const Form = ({ title, handler }: FormProps) => {
 
   return (
     <>
-      <Box maw={300} mx="auto">
-        <h3>
-          <Trans i18nKey={h3Title} />
-        </h3>
-        <form onSubmit={onFormSubmit}>
-          <TextInput
-            withAsterisk
-            label={<Trans i18nKey="form.email" />}
-            placeholder="your@email.com"
-            {...form.getInputProps('email')}
-          />
-          <PasswordInput
-            withAsterisk
-            label={<Trans i18nKey="form.password" />}
-            placeholder="********"
-            {...form.getInputProps('password')}
-          />
+      <ErrorBoundary>
+        <Box maw={300} mx="auto">
+          <h3>
+            <Trans i18nKey={h3Title} />
+          </h3>
+          <form onSubmit={onFormSubmit}>
+            <TextInput
+              withAsterisk
+              label={<Trans i18nKey="form.email" />}
+              placeholder="your@email.com"
+              {...form.getInputProps('email')}
+            />
+            <PasswordInput
+              withAsterisk
+              label={<Trans i18nKey="form.password" />}
+              placeholder="********"
+              {...form.getInputProps('password')}
+            />
 
-          <Group position="right" mt="md">
-            <Button type="submit">
-              <Trans i18nKey={btn} />
-            </Button>
-          </Group>
-        </form>
-      </Box>
-      {loading && <Loader />}
-      {formError && (
-        <Alert
-          w={300}
-          mx="auto"
-          mt={15}
-          icon={<IconAlertCircle size="1rem" />}
-          title={<Trans i18nKey="formError.alert" />}
-          color="red"
-        >
-          {formError}
-        </Alert>
-      )}
+            <Group position="right" mt="md">
+              <Button type="submit">
+                <Trans i18nKey={btn} />
+              </Button>
+            </Group>
+          </form>
+        </Box>
+        {loading && <Loader />}
+        {formError && (
+          <Alert
+            w={300}
+            mx="auto"
+            mt={15}
+            icon={<IconAlertCircle size="1rem" />}
+            title={<Trans i18nKey="formError.alert" />}
+            color="red"
+          >
+            {formError}
+          </Alert>
+        )}
+      </ErrorBoundary>
     </>
   );
 };
