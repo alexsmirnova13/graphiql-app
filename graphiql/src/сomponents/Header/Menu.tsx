@@ -111,9 +111,10 @@ const Menu = (props: MenuProps) => {
             error={error}
             errorDB={dbError}
             loading={loading}
+            close={close}
           />
         ) : (
-          <AuthBtns {...{ buttonType, currentPage }}></AuthBtns>
+          <AuthBtns {...{ buttonType, currentPage, close }}></AuthBtns>
         )}
 
         <Flex gap={10} justify={'flex-end'} align={'center'}>

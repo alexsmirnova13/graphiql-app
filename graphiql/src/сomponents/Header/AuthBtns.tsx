@@ -6,9 +6,10 @@ import { IconLogin, IconUserPlus } from '@tabler/icons-react';
 type AuthBtnsProps = {
   currentPage: string;
   buttonType: string;
+  close?: () => void;
 };
 
-const AuthBtns = ({ currentPage, buttonType }: AuthBtnsProps) => {
+const AuthBtns = ({ currentPage, buttonType, close }: AuthBtnsProps) => {
   const color = buttonType === 'subtle' ? '#228be6' : '#ffffff';
   return (
     <Flex gap={10} justify={'flex-start'}>

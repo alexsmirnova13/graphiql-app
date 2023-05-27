@@ -12,10 +12,11 @@ type LogoutProps = {
   error: Error | undefined;
   errorDB: JSX.Element | null;
   loading: boolean;
+  close?: () => void;
 };
 
 const Logout = (props: LogoutProps) => {
-  const { buttonType, name, errorDB } = props;
+  const { buttonType, name, errorDB, close } = props;
   const color = buttonType === 'subtle' ? '#228be6' : '#ffffff';
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -23,6 +24,7 @@ const Logout = (props: LogoutProps) => {
     logout();
     dispatch(removeUser());
     navigate('/');
+    if (close) close();
   };
   return (
     <Flex gap={10} justify={'flex-start'}>
