@@ -54,5 +54,9 @@
     "headers": "Headers editor",
     "response": "Response section",
     "headersMessage": "There are no headers"
+  },
+  "docsExplorer": {
+    "h1": "Documentation explorer",
+    "backSchema": "Back to "
   }
 }

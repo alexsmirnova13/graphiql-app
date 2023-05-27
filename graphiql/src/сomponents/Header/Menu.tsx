@@ -82,7 +82,7 @@ const Menu = (props: MenuProps) => {
     if (loading) return;
     if (!user) return navigate('/');
     getUser();
-  }, [user, loading]);
+  }, [user, loading, navigate]);
 
   return (
     <>
@@ -133,8 +133,15 @@ const Menu = (props: MenuProps) => {
             checked={colorScheme === 'dark'}
             onChange={() => toggleColorScheme()}
             size="lg"
-            onLabel={<IconSunHigh color={'#fcfc03'} size="1.25rem" stroke={1.5} />}
-            offLabel={<IconMoon size="1.25rem" stroke={1.5} />}
+            onLabel={
+              <IconSunHigh
+                color={'#fcfc03'}
+                size="1.25rem"
+                stroke={1.5}
+                style={{ cursor: 'pointer' }}
+              />
+            }
+            offLabel={<IconMoon size="1.25rem" stroke={1.5} style={{ cursor: 'pointer' }} />}
           />
         </Flex>
       </Flex>

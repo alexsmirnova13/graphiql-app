@@ -9,7 +9,7 @@ i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    debug: true, // !убрать в конце, чтобы не было в консоли вывода языка
+    debug: false,
     lng: 'en',
     interpolation: {
       escapeValue: false,
