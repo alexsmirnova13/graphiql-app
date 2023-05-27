@@ -1,6 +1,5 @@
-<<<<<<< HEAD
-import { Flex } from '@mantine/core';
-import { GraphQLObjectType, GraphQLSchema, OperationTypeNode } from 'graphql';
+import { Flex, MantineTheme, createStyles } from '@mantine/core';
+import { GraphQLObjectType, GraphQLScalarType, GraphQLSchema, OperationTypeNode } from 'graphql';
 import { useEffect, useState } from 'react';
 import { Header } from './Schema/Header';
 import { IHistory } from './Schema/interfaces';
@@ -10,25 +9,35 @@ import { TypeDetails } from './Schema/TypeDetails';
 import { Search } from './Schema/Search';
 import { getSchema } from '../../utils/graphiApi';
 
-export interface IDocsExplorerProps {
-  onClose: () => void;
-}
-
-const DocsExplorer = ({ onClose }: IDocsExplorerProps) => {
+const useStyles = createStyles((theme: MantineTheme) => ({
+  docsExplorer: {
+    background: theme.colorScheme === 'dark' ? theme.colors.gray[9] : theme.colors.gray[1],
+  },
+}));
+const DocsExplorer = () => {
   const [schema, setSchema] = useState<GraphQLSchema | undefined>();
   const [focusedTypeName, setFocusedTypeName] = useState<string | undefined>();
   const [focusedFieldName, setFocusedFieldName] = useState<string | undefined>();
   const [history, setHistory] = useState<IHistory[]>([]);
   const [search, setSearch] = useState('');
-
+  const [error, setError] = useState<string | undefined>();
+  const { classes } = useStyles();
   useEffect(() => {
     const downloadSchema = async () => {
-      const schema = await getSchema();
-      setSchema(schema);
+      try {
+        const schema = await getSchema();
+        setSchema(schema);
+      } catch (e) {
+        setError('loh');
+      }
     };
 
     downloadSchema();
   }, []);
+
+  if (error) {
+    return <div>{error}</div>;
+  }
 
   if (!schema) {
     return <div>Loading schema...</div>;
@@ -70,26 +79,26 @@ const DocsExplorer = ({ onClose }: IDocsExplorerProps) => {
     setSearch(value);
   };
 
-  console.log(schema);
-
   const previousHistoryItem = history.slice(-1)[0];
-  const headerTitle = focusedFieldName || focusedTypeName || 'Documentation explorer';
+  const headerTitle = focusedFieldName || focusedTypeName || 'docsExplorer.h1';
   const backButtonText = previousHistoryItem
     ? previousHistoryItem.fieldName || previousHistoryItem.typeName || 'Schema'
     : undefined;
 
   const focusedType = focusedTypeName && schema.getType(focusedTypeName);
+  const showSearch = !(focusedFieldName || focusedType instanceof GraphQLScalarType);
+  const placeholderText = 'Search ' + (focusedTypeName || 'Schema') + '...';
 
   return (
-    <Flex w={450} direction="column" bg="grey">
-      <Header
-        onBackClick={handleHistoryBack}
-        onCloseClick={onClose}
-        title={headerTitle}
-        backButtonText={backButtonText}
-      />
-      {!focusedFieldName && (
-        <Input placeHolder="Schema" onChange={handleSearchChange} value={search} />
+    <Flex
+      w={350}
+      style={{ padding: '50px 20px 20px 20px' }}
+      direction="column"
+      className={classes.docsExplorer}
+    >
+      <Header onBackClick={handleHistoryBack} title={headerTitle} backButtonText={backButtonText} />
+      {showSearch && (
+        <Input placeHolder={placeholderText} onChange={handleSearchChange} value={search} />
       )}
       {search ? (
         <Search
@@ -106,36 +115,14 @@ const DocsExplorer = ({ onClose }: IDocsExplorerProps) => {
           <p>Root types</p>
           {[...rootTypeMap.entries()].map(([name, type]) => {
             return (
-              <>
-                <Flex>
-                  <span>{name}: </span>
-                  <Type key={name} onClick={handleClick} name={type.name} />
-                </Flex>
-              </>
+              <Flex key={name}>
+                <span>{name}:&nbsp;</span>
+                <Type key={name} onClick={handleClick} name={type.name} />
+              </Flex>
             );
           })}
         </>
       )}
-=======
-import { Flex, Input, createStyles } from '@mantine/core';
-import { IconSearch } from '@tabler/icons-react';
-
-const useStyles = createStyles({
-  middle: {
-    flex: '1',
-    ['@media (max-width: 1100px)']: {
-      width: '100%',
-    },
-  },
-});
-
-const DocsExplorer = () => {
-  const { classes } = useStyles();
-  return (
-    <Flex w="200px" direction="column" gap="sm" className={classes.middle}>
-      <Input icon={<IconSearch size="1rem" />} placeholder="search" maw="300px" />
-      <p>тут инфа разная</p>
->>>>>>> develop
     </Flex>
   );
 };

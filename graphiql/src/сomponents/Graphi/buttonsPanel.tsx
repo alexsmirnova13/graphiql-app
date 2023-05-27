@@ -1,31 +1,30 @@
 import { useEffect, useState } from 'react';
-import { Button } from '@mantine/core';
+import { Button, Flex, MantineTheme, createStyles } from '@mantine/core';
 import { IconNotebook } from '@tabler/icons-react';
 
 export interface IButtonsPanelProps {
   onButtonClick: (bool: boolean) => void;
 }
-
+const useStyles = createStyles((theme: MantineTheme) => ({
+  buttonPanel: {
+    background: theme.colorScheme === 'dark' ? theme.colors.gray[9] : theme.colors.gray[1],
+  },
+}));
 const ButtonsPanel = ({ onButtonClick }: IButtonsPanelProps) => {
-  // const height = 'calc(100vh - 2rem - 3.75rem)';
   const [panelStatus, setPanelStatus] = useState(false);
   const openDocs = () => {
     panelStatus === false ? setPanelStatus(true) : setPanelStatus(false);
   };
-
+  const { classes } = useStyles();
   useEffect(() => {
     onButtonClick(panelStatus);
   }, [panelStatus, onButtonClick]);
   return (
-<<<<<<< HEAD
-    <Flex w={70} direction="column" bg="green" h={height}>
-      <Button onClick={openDocs}>туть</Button>
+    <Flex w={50} className={classes.buttonPanel} direction="column">
+      <Button onClick={openDocs} style={{ padding: '0', marginTop: '34px' }}>
+        <IconNotebook size={35} strokeWidth={1.5} color={'#ffffff'} />
+      </Button>
     </Flex>
-=======
-    <Button onClick={openDocs}>
-      <IconNotebook size={35} strokeWidth={1.5} color={'#ffffff'} />
-    </Button>
->>>>>>> develop
   );
 };
 

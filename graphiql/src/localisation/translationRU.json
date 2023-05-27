@@ -54,5 +54,9 @@
     "err": "Не найдено",
     "response": "Раздел ответа",
     "headersMessage": "Хедеры не подвезли"
+  },
+  "docsExplorer": {
+    "h1": "Документация",
+    "backSchema": "Назад к "
   }
 }

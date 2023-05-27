@@ -1,18 +1,22 @@
-import { Flex } from '@mantine/core';
-
+import { Button, Flex, Text } from '@mantine/core';
+import { Trans } from 'react-i18next';
 interface IHeaderProps {
   title: string;
   backButtonText?: string;
   onBackClick: () => void;
-  onCloseClick: () => void;
 }
 
-export const Header = ({ title, backButtonText, onBackClick, onCloseClick }: IHeaderProps) => {
+export const Header = ({ title, backButtonText, onBackClick }: IHeaderProps) => {
   return (
     <Flex direction={'row'} justify="space-between">
-      {backButtonText && <button onClick={onBackClick}>BACK {backButtonText}</button>}
-      <span>{title}</span>
-      <button onClick={onCloseClick}>X</button>
+      {backButtonText && (
+        <Button onClick={onBackClick}>
+          <Trans i18nKey="docsExplorer.backSchema"></Trans> {backButtonText}
+        </Button>
+      )}
+      <Text component="h1" size="xl" weight={700} color="blue">
+        <Trans i18nKey={title}></Trans>
+      </Text>
     </Flex>
   );
 };

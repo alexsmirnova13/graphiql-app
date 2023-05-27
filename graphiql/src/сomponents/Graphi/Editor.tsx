@@ -4,8 +4,6 @@ import { javascript } from '@codemirror/lang-javascript';
 import { Button, Flex, Box, useMantineTheme, createStyles, MantineTheme } from '@mantine/core';
 import { THeandler } from './requestSection';
 import { useTranslation } from 'react-i18next';
-//import { androidstudio } from '@uiw/codemirror-theme-androidstudio';
-//import { bbedit } from '@uiw/codemirror-theme-bbedit'; //! удалить если не зайдет
 
 interface IEditor {
   code: string;
@@ -28,7 +26,6 @@ const Editor: FC<IEditor> = ({ code, setCode, name, closed, codeH, readOnly }) =
   const { t } = useTranslation();
   const openClose = closed ? () => setIsOpened((prevState) => !prevState) : () => {};
   const theme = useMantineTheme();
-  //const codeTheme = theme.colorScheme === 'dark' ? androidstudio : bbedit; //? на выбор
   const { classes } = useStyles();
 
   return (

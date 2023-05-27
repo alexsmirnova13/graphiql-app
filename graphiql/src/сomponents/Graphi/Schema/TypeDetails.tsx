@@ -89,10 +89,10 @@ export const TypeDetails = ({ type, onClick, focusedFieldName }: ITypeDetailsPro
     return (
       <Flex direction={'column'}>
         {values.map((value) => (
-          <>
+          <Flex key={value.name}>
             <p>{value.name}</p>
             <p>{value.description}</p>
-          </>
+          </Flex>
         ))}
       </Flex>
     );

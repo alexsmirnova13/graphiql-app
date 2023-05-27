@@ -7,5 +7,12 @@ interface IFieldNameProps {
 }
 
 export const FieldName = ({ name, parentTypeName, onClick }: IFieldNameProps) => {
-  return <span onClick={() => onClick({ fieldName: name, typeName: parentTypeName })}>{name}</span>;
+  return (
+    <span
+      style={{ cursor: 'pointer', color: 'orange' }}
+      onClick={() => onClick({ fieldName: name, typeName: parentTypeName })}
+    >
+      {name}
+    </span>
+  );
 };

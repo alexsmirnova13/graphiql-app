@@ -24,7 +24,7 @@ export const Field = ({ name, type, args, parentTypeName, onClick }: IFieldProps
     typePostfix: postfix,
   }));
   return (
-    <Flex>
+    <Flex wrap={'wrap'}>
       <FieldName name={name} onClick={onClick} parentTypeName={parentTypeName} />
       <span>&nbsp;</span>
       {argsArr && Boolean(argsArr.length) && <Arguments args={argsArr} onClick={onClick} />}

@@ -1,4 +1,5 @@
 import { ChangeEvent } from 'react';
+import { Input as MantineInput } from '@mantine/core';
 
 interface IInputProps {
   placeHolder?: string;
@@ -12,6 +13,11 @@ export const Input = ({ placeHolder, value, onChange }: IInputProps) => {
   };
 
   return (
-    <input placeholder={placeHolder || 'Type here'} onChange={handleChange} value={value}></input>
+    <MantineInput
+      style={{ padding: '30px 0' }}
+      placeholder={placeHolder || 'Type here'}
+      onChange={handleChange}
+      value={value}
+    ></MantineInput>
   );
 };

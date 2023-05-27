@@ -1,16 +1,11 @@
-import { useState } from 'react';
+import { useState, lazy } from 'react';
 import ButtonsPanel from '../сomponents/Graphi/buttonsPanel';
-import DocsExplorer from '../сomponents/Graphi/docsExplorer';
 import RequestSection from '../сomponents/Graphi/requestSection';
 import ResultSection from '../сomponents/Graphi/resultSection';
 import { Flex, createStyles } from '@mantine/core';
 
+const DocsExplorer = lazy(() => import('../сomponents/Graphi/docsExplorer'));
 const useStyles = createStyles({
-  // large: {
-  //   ['@media (min-width: 1100px)']: {
-  //     flexDirection: 'row',
-  //   },
-  // },
   middle: {
     flex: '1',
     ['@media (max-width: 1025px)']: {
@@ -30,7 +25,7 @@ const Graphi = () => {
     <Flex w="100%" className={classes.middle}>
       <Flex direction="row">
         <ButtonsPanel onButtonClick={handleClick} />
-        {isOpened && <DocsExplorer onClose={() => console.log('kek')} />}
+        {isOpened && <DocsExplorer />}
       </Flex>
 
       <Flex w="100%" className={classes.middle}>

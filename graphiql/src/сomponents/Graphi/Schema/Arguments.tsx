@@ -13,10 +13,10 @@ export const Arguments = ({ args, onClick }: IArgumentsProps) => {
       <span>(</span>
       {args.map((argument, i) => {
         return (
-          <>
-            <Argument key={argument.name} argument={argument} onClick={onClick} />
+          <Flex key={argument.name}>
+            <Argument argument={argument} onClick={onClick} />
             {i === args.length - 1 ? null : <span>,&nbsp;</span>}
-          </>
+          </Flex>
         );
       })}
       <span>)</span>
