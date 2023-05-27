@@ -59,7 +59,6 @@ const App = () => {
           },
           components: {
             Button: {
-              // Subscribe to theme and component params
               styles: (_theme, _params: ButtonStylesParams, { variant }) => ({
                 root: {
                   '&:hover': {

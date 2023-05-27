@@ -14,7 +14,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, db, logout } from '../../firebase';
 import AuthBtns from './AuthBtns';
 import Logout from './Logout';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { query, collection, getDocs, where } from 'firebase/firestore';
 
 const useStyles = createStyles({
@@ -59,7 +59,7 @@ const Menu = (props: MenuProps) => {
   const [user, loading, error] = useAuthState(auth);
   const [name, setName] = useState('');
   const [dbError, setDbError] = useState<JSX.Element | null>(null);
-  const navigate = useNavigate();
+  const navigate = useCallback(useNavigate(), []);
 
   useEffect(() => {
     const getUser = async () => {
@@ -82,7 +82,7 @@ const Menu = (props: MenuProps) => {
     if (loading) return;
     if (!user) return navigate('/');
     getUser();
-  }, [user, loading]);
+  }, [user, loading, navigate]);
 
   return (
     <>

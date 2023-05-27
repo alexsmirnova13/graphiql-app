@@ -53,6 +53,12 @@
     "headers": "Редактор заголовков",
     "err": "Не найдено",
     "response": "Раздел ответа",
-    "headersMessage": "Хедеры не подвезли"
+    "headersMessage": "Хедеры не подвезли",
+    "defaultResponse": "Тут будет ответ"
+  },
+  "docs": {
+    "fild": "Получить описание",
+    "description": "Описание",
+    "type": "Тип"
   }
 }
