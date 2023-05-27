@@ -4,11 +4,6 @@ export type FormType = {
 };
 
 export type UserState = {
-  id?: string;
-  name?: string;
+  id: string;
   email: string;
-};
-
-export type UserExtension = {
-  token: string;
 };
