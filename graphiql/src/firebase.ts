@@ -3,6 +3,7 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
+  signOut,
 } from 'firebase/auth';
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
 import { FirebaseError, initializeApp } from 'firebase/app';
@@ -29,9 +30,10 @@ const logInWithEmailAndPassword = async ({
   try {
     const res = await signInWithEmailAndPassword(auth, email, password);
     const user = res.user;
-    const accessToken = await user.getIdToken();
+    const { expirationTime, token } = await user.getIdTokenResult();
     localStorage.setItem('refreshToken', user.refreshToken);
-    localStorage.setItem('accessToken', accessToken);
+    localStorage.setItem('accessToken', token);
+    localStorage.setItem('expirationTime', expirationTime);
     const newUser = {
       email: email,
       id: user.uid,
@@ -61,9 +63,10 @@ const registerWithEmailAndPassword = async ({
       authProvider: 'local',
       email,
     });
-    const accessToken = await user.getIdToken();
+    const { expirationTime, token } = await user.getIdTokenResult();
     localStorage.setItem('refreshToken', user.refreshToken);
-    localStorage.setItem('accessToken', accessToken);
+    localStorage.setItem('accessToken', token);
+    localStorage.setItem('expirationTime', expirationTime);
     const newUser = {
       email: email,
       id: user.uid,
@@ -86,10 +89,21 @@ const sendPasswordReset = async (email: string) => {
     alert('Password reset link sent!');
   } catch (err) {
     if (err instanceof FirebaseError) {
-      console.error(err);
       alert(err.message);
     }
   }
 };
 
-export { auth, db, logInWithEmailAndPassword, registerWithEmailAndPassword, sendPasswordReset };
+const logout = () => {
+  signOut(auth);
+  localStorage.removeItem('accessToken');
+};
+
+export {
+  auth,
+  db,
+  logInWithEmailAndPassword,
+  registerWithEmailAndPassword,
+  sendPasswordReset,
+  logout,
+};

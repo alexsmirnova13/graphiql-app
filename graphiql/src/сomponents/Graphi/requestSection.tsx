@@ -1,7 +1,7 @@
 import { Button, Flex, createStyles } from '@mantine/core';
 import Editor from './Editor';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { setHeaders, setRequest, setVaribalse, setResponce } from '../../store/GraphiReduser';
+import { setRequest, setVaribalse, setResponce } from '../../store/graphiSlice';
 import { IconPlayerPlay } from '@tabler/icons-react';
 import getGpahGLresponse from '../../helpers/getGpahGLresponse';
 import { useState } from 'react';
@@ -28,11 +28,11 @@ const RequestSection = () => {
   const [loading, isLoadToglet] = useState(false);
   const request = useAppSelector((state) => state.graphi.request);
   const variables = useAppSelector((state) => state.graphi.variables);
-  const headers = useAppSelector((state) => state.graphi.headers);
+  const { t } = useTranslation();
+  const headers = t('editor.headersMessage');
   const dispatch = useAppDispatch();
   const setRequestCode = (value: string) => dispatch(setRequest(value));
   const setVaribalseCode = (value: string) => dispatch(setVaribalse(value));
-  const setHeadersCode = (value: string) => dispatch(setHeaders(value));
   const { classes } = useStyles();
 
   const submit = async () => {
@@ -41,10 +41,6 @@ const RequestSection = () => {
     dispatch(setResponce(response));
     isLoadToglet(false);
   };
-
-  const { t } = useTranslation();
-
-  setHeadersCode(t('editor.headersMessage'));
 
   return (
     <Flex miw="50%" direction="column" pos={'relative'}>
@@ -67,7 +63,7 @@ const RequestSection = () => {
       </Button>
       <Editor code={request} setCode={setRequestCode} name="request" codeH={300} />
       <Editor code={variables} setCode={setVaribalseCode} name="varibalse" closed codeH={130} />
-      <Editor code={headers} setCode={setHeadersCode} name="headers" closed codeH={130} />
+      <Editor code={headers} name="headers" closed codeH={130} />
     </Flex>
   );
 };

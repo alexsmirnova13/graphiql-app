@@ -34,7 +34,8 @@
     "wrEmail": "Invalid email address",
     "wrPassword": "Wrong password",
     "exitsUser": "User with this email exists!",
-    "generelError": "Something went wrong!"
+    "generelError": "Something went wrong!",
+    "dbError": "Something went wrong with database"
   },
   "footer": {
     "andrei": "Andrei",

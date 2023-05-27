@@ -8,6 +8,7 @@ import { Trans } from 'react-i18next';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useEffect, useState } from 'react';
 import { IconAlertCircle } from '@tabler/icons-react';
+import { isExpiredToken } from '../helpers/isExpiredToken';
 
 type FormProps = {
   title: string;
@@ -57,6 +58,7 @@ export const Form = ({ title, handler }: FormProps) => {
       const user = await handler(form);
       if (user) {
         dispatch(setUser(user));
+        isExpiredToken();
       }
     } catch (err) {
       if (err instanceof Error) {
