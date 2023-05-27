@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import ButtonsPanel from '../сomponents/Graphi/buttonsPanel';
 import DocsExplorer from '../сomponents/Graphi/docsExplorer';
 import RequestSection from '../сomponents/Graphi/requestSection';
 import ResultSection from '../сomponents/Graphi/resultSection';
-import { Flex, createStyles } from '@mantine/core';
+import { Flex, createStyles, Button } from '@mantine/core';
+import { IconNotebook } from '@tabler/icons-react';
 
 const useStyles = createStyles({
   // large: {
@@ -22,14 +22,13 @@ const useStyles = createStyles({
 const Graphi = () => {
   const [isOpened, setIsOpened] = useState(false);
   const { classes } = useStyles();
-  const handleClick = (bool: boolean) => {
-    setIsOpened(bool);
-  };
 
   return (
-    <Flex w="100%" className={classes.middle}>
-      <Flex direction="row">
-        <ButtonsPanel onButtonClick={handleClick} />
+    <Flex w="100%" className={classes.middle} pos={'relative'} top={0} left={0}>
+      <Flex direction="column">
+        <Button onClick={() => setIsOpened(!isOpened)} variant="subtle">
+          <IconNotebook size={35} strokeWidth={1} />
+        </Button>
         {isOpened && <DocsExplorer />}
       </Flex>
 

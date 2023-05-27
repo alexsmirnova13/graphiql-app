@@ -1,14 +1,18 @@
-import { Flex, Input, createStyles } from '@mantine/core';
+import { Flex, Input, MantineTheme, createStyles } from '@mantine/core';
 import { IconSearch } from '@tabler/icons-react';
 
-const useStyles = createStyles({
+const useStyles = createStyles((theme: MantineTheme) => ({
   middle: {
     flex: '1',
+    border: '1px solid',
+    borderColor: theme.colorScheme === 'dark' ? theme.colors.dark[9] : theme.colors.gray[1],
     ['@media (max-width: 1100px)']: {
       width: '100%',
     },
   },
-});
+}));
+
+// black #282c34
 
 const DocsExplorer = () => {
   const { classes } = useStyles();
