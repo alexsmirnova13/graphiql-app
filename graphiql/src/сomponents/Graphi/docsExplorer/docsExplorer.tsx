@@ -1,6 +1,8 @@
-import { Button, Flex, MantineTheme, createStyles, Box } from '@mantine/core';
+import { Button, Flex, MantineTheme, createStyles, Box, useMantineTheme } from '@mantine/core';
 import { getSchema } from './getSchema';
-import { Suspense, useState } from 'react';
+import { useState } from 'react';
+import { ReactComponent as Logo } from '../../../assets/svg/docsLogo.svg';
+//import Logo from '../../../assets/svg/docsLogo.svg';
 import Docs from './Docs/Docs';
 
 export type Item = {
@@ -44,10 +46,30 @@ const DocsExplorer = () => {
       setSchema(null);
     }
   };
+  const theme = useMantineTheme();
+  const svgColor = theme.colorScheme === 'dark' ? '#a5d8ff' : '#228be6';
 
   return (
     <Flex w="350px" direction="column" gap="sm" className={classes.middle} h={636}>
       <Box>
+        <Box
+          component="a"
+          target="_blank"
+          href="https://rickandmortyapi.com/documentation"
+          sx={{
+            textDecoration: 'none',
+          }}
+        >
+          <Button
+            variant="light"
+            onClick={() => submit()}
+            fullWidth
+            radius={0}
+            leftIcon={<Logo width={30} hanging={30} fill={svgColor} />}
+          >
+            Rick&Morty
+          </Button>
+        </Box>
         <Button variant="light" onClick={() => submit()} fullWidth radius={0}>
           Query
         </Button>

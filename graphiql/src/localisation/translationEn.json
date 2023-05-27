@@ -53,7 +53,8 @@
     "request": "Request editor",
     "headers": "Headers editor",
     "response": "Response section",
-    "headersMessage": "There are no headers"
+    "headersMessage": "There are no headers",
+    "defaultResponse": "Here will be the response"
   },
   "docs": {
     "fild": "Get descripyion",
