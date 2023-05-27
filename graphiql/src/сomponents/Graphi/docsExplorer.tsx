@@ -1,6 +1,6 @@
 import { Flex } from '@mantine/core';
 import { GraphQLNamedType, GraphQLObjectType, GraphQLSchema, OperationTypeNode } from 'graphql';
-import { useState } from 'react';
+import { useState, createStyles } from 'react';
 import { SchemaComponents } from './Schema/const';
 import { SchemaType } from './Schema/SchemaType';
 import { TypeDetails } from './Schema/TypeDetails';
@@ -39,24 +39,21 @@ const DocsExplorer = ({ schema }: IDocsExplorerProps) => {
     return acc;
   }, new Map<OperationTypeNode, GraphQLObjectType>());
 
+const useStyles = createStyles({
+  middle: {
+    flex: '1',
+    ['@media (max-width: 1100px)']: {
+      width: '100%',
+    },
+  },
+});
+
+const DocsExplorer = () => {
+  const { classes } = useStyles();
   return (
-    <Flex w={450} direction="column" bg="grey">
-      {focusedType ? (
-        <TypeDetails type={focusedType} onClick={handleClick} focusedFieldName={focusedFieldName} />
-      ) : (
-        <>
-          {[...rootTypeMap.entries()].map(([name, type]) => {
-            return (
-              <>
-                <Flex>
-                  <span>{name}: </span>
-                  <SchemaType key={name} onClick={handleClick} name={type.name} />
-                </Flex>
-              </>
-            );
-          })}
-        </>
-      )}
+    <Flex w="200px" direction="column" gap="sm" className={classes.middle}>
+      <Input icon={<IconSearch size="1rem" />} placeholder="search" maw="300px" />
+      <p>тут инфа разная</p>
     </Flex>
   );
 };

@@ -20,16 +20,21 @@
     "user": "Logged in as "
   },
   "form": {
-      "registration": "Registration",
-      "login": "Login",
-      "email": "Email:",
-      "password": "Password:",        
-      "signup": "Create account"
+    "registration": "Registration",
+    "login": "Login",
+    "email": "Email:",
+    "password": "Password:",
+    "signup": "Create account"
   },
   "formError": {
     "email": "Invalid email",
     "password": "Password must be at least 8 characters long and contain at least one letter, one digit, and one special character",
-    "alert": "User not found! Check login or password!"
+    "alert": "Attention!",
+    "noUser": "User not found! Check login or password!",
+    "wrEmail": "Invalid email address",
+    "wrPassword": "Wrong password",
+    "exitsUser": "User with this email exists!",
+    "generelError": "Something went wrong!"
   },
   "footer": {
     "andrei": "Andrei",
@@ -41,5 +46,12 @@
     "h2": "We can not find that page",
     "p": "We are fairly sure that page used to be here, but seems to have gone missing. We do apologise on it is behalf.",
     "button": "Home"
-    }
+  },
+  "editor": {
+    "varibalse": "Variables editor",
+    "request": "Request editor",
+    "headers": "Headers editor",
+    "response": "Response section",
+    "headersMessage": "There are no headers"
+  }
 }

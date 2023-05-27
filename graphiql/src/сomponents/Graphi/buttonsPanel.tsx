@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Button, Flex } from '@mantine/core';
+import { IconClipboardText, IconBrandGraphql, IconNotebook } from '@tabler/icons-react';
 import getFields, { getSchema } from './../../utils/graphiApi';
 import { GraphQLSchema } from 'graphql';
 
@@ -22,10 +23,13 @@ const ButtonsPanel = ({ onButtonClick, setSchema }: IButtonsPanelProps) => {
     onButtonClick(panelStatus);
   }, [panelStatus, onButtonClick]);
   return (
-    <Flex w={70} direction="column" bg="green" h={height}>
-      <Button onClick={openDocs}>туть</Button>
-      <Button onClick={downloadSchemas}>сють</Button>
-    </Flex>
+    // <Flex w={70} direction="column" h={height}>
+    <Button onClick={openDocs}>
+      <IconBrandGraphql size={35} strokeWidth={1.5} color={'#ffffff'} />
+      <IconClipboardText size={35} strokeWidth={1.5} color={'#ffffff'} />
+      <IconNotebook size={35} strokeWidth={1.5} color={'#ffffff'} />
+    </Button>
+    // </Flex>
   );
 };
 

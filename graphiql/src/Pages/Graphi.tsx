@@ -3,23 +3,39 @@ import ButtonsPanel from '../сomponents/Graphi/buttonsPanel';
 import DocsExplorer from '../сomponents/Graphi/docsExplorer';
 import RequestSection from '../сomponents/Graphi/requestSection';
 import ResultSection from '../сomponents/Graphi/resultSection';
-import { Flex } from '@mantine/core';
+import { Flex, createStyles } from '@mantine/core';
 import { GraphQLSchema } from 'graphql';
+
+const useStyles = createStyles({
+  // large: {
+  //   ['@media (min-width: 1100px)']: {
+  //     flexDirection: 'row',
+  //   },
+  // },
+  middle: {
+    flex: '1',
+    ['@media (max-width: 1025px)']: {
+      flexDirection: 'column',
+    },
+  },
+});
 
 const Graphi = () => {
   const [isOpened, setIsOpened] = useState(false);
+  const { classes } = useStyles();
   const [schema, setSchema] = useState<GraphQLSchema>();
   const handleClick = (bool: boolean) => {
     setIsOpened(bool);
   };
 
   return (
-    <Flex direction="row" w="100%">
+    <Flex w="100%" className={classes.middle}>
       <Flex direction="row">
         <ButtonsPanel onButtonClick={handleClick} setSchema={setSchema} />
         {isOpened && <DocsExplorer schema={schema} />}
       </Flex>
-      <Flex direction="row" w="100%">
+
+      <Flex w="100%" className={classes.middle}>
         <RequestSection />
         <ResultSection />
       </Flex>
