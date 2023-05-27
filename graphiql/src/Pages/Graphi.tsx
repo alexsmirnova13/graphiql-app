@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import DocsExplorer from '../сomponents/Graphi/docsExplorer';
+import DocsExplorer from '../сomponents/Graphi/docsExplorer/docsExplorer';
 import RequestSection from '../сomponents/Graphi/requestSection';
 import ResultSection from '../сomponents/Graphi/resultSection';
 import { Flex, createStyles, Button } from '@mantine/core';

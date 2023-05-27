@@ -1,5 +1,6 @@
-import { Flex, Input, MantineTheme, createStyles } from '@mantine/core';
-import { IconSearch } from '@tabler/icons-react';
+import { Button, Flex, MantineTheme, createStyles } from '@mantine/core';
+import getScheme from './getScheme';
+import { useState } from 'react';
 
 const useStyles = createStyles((theme: MantineTheme) => ({
   middle: {
@@ -16,10 +17,16 @@ const useStyles = createStyles((theme: MantineTheme) => ({
 
 const DocsExplorer = () => {
   const { classes } = useStyles();
+  const [scheme, setScheme] = useState();
+  const submit = async () => {
+    const response = await getScheme();
+    setScheme(response);
+    console.log(response);
+  };
   return (
     <Flex w="200px" direction="column" gap="sm" className={classes.middle}>
-      <Input icon={<IconSearch size="1rem" />} placeholder="search" maw="300px" />
-      <p>тут инфа разная</p>
+      <Button onClick={() => submit()}></Button>
+      {JSON.stringify(scheme)}
     </Flex>
   );
 };
