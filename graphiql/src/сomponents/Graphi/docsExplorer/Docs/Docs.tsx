@@ -1,9 +1,8 @@
 import { Accordion } from '@mantine/core';
-import { Item } from '../Heading';
 import DocsItem from './DocsItem';
+import { Item } from '../DocsExplorer';
 
 const Docs = ({ items }: { items: Item[] }) => {
-  console.log(items);
   const Items = items.map((item) => <DocsItem {...item} key={item.name} />);
 
   return <Accordion>{Items}</Accordion>;

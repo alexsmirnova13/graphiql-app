@@ -26,7 +26,7 @@ const Graphi = () => {
   return (
     <Flex w="100%" className={classes.middle} pos={'relative'} top={0} left={0}>
       <Flex direction="column">
-        <Button onClick={() => setIsOpened(!isOpened)} variant="subtle">
+        <Button onClick={() => setIsOpened(!isOpened)} variant="light" radius={0}>
           <IconNotebook size={35} strokeWidth={1} />
         </Button>
         {isOpened && <DocsExplorer />}

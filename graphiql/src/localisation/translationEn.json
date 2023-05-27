@@ -54,5 +54,10 @@
     "headers": "Headers editor",
     "response": "Response section",
     "headersMessage": "There are no headers"
+  },
+  "docs": {
+    "fild": "Get descripyion",
+    "description": "Descripyion",
+    "type": "Type"
   }
 }
