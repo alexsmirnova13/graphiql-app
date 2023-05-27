@@ -1,36 +1,38 @@
 import { Flex } from '@mantine/core';
-import { GraphQLArgument, GraphQLField, GraphQLOutputType } from 'graphql';
 import { Argument } from './Argument';
-import { SchemaComponents } from './const';
-import { SchemaType } from './SchemaType';
-import { parseType } from './utils';
+import { IArgument, IHistory, IType } from './interfaces';
+import { Type } from './Type';
 
 export interface IFieldDetailsProps {
-  field: GraphQLField;
-  type: GraphQLOutputType;
-  args: GraphQLArgument[];
-  onClick: (name: string, component: SchemaComponents) => void;
+  description?: string;
+  type: IType;
+  args?: IArgument[];
+  onClick: (newEntry: IHistory) => void;
 }
 
-export const FieldDetails = ({ field, type, args, onClick }: IFieldDetailsProps) => {
-  const parsedType = parseType(type);
-  const [prefix, typeName, postfix] = parsedType.split('-');
+export const FieldDetails = ({
+  description,
+  type,
+  type: { prefix, name, postfix },
+  args,
+  onClick,
+}: IFieldDetailsProps) => {
   return (
     <Flex direction={'column'}>
-      <span>{field.description}</span>
+      <span>{description}</span>
       {type && (
         <>
           <p>Type</p>
           <p>
-            <SchemaType prefix={prefix} name={typeName} postfix={postfix} onClick={onClick} />
+            <Type prefix={prefix} name={name} postfix={postfix} onClick={onClick} />
           </p>
         </>
       )}
 
-      {args.length && (
+      {Boolean(args && args.length) && (
         <>
           <p>Arguments</p>
-          {args.map((argument) => (
+          {args?.map((argument) => (
             <Argument key={argument.name} argument={argument} onClick={onClick} />
           ))}
         </>

@@ -1,22 +1,31 @@
 import { Flex } from '@mantine/core';
-import { GraphQLArgument } from 'graphql';
-import { SchemaComponents } from './const';
-import { SchemaType } from './SchemaType';
-import { parseType } from './utils';
+import { IArgument, IHistory } from './interfaces';
+import { Type } from './Type';
 
 interface IArgumentProps {
-  argument: GraphQLArgument;
-  onClick: (name: string, component: SchemaComponents) => void;
+  argument: IArgument;
+  onClick: (newEntry: IHistory) => void;
 }
 
 export const Argument = ({ argument, onClick }: IArgumentProps) => {
-  const type = argument.type;
-  const parsedType = parseType(type);
-  const [prefix, typeName, postfix] = parsedType.split('-');
+  // if (argument) {
+  //   const type = argument.type;
+  //   const parsedType = parseType(type);
+  //   const [prefix, parsedTypeName, postfix] = parsedType.split('-');
+  //   return (
+  //     <Flex>
+  //       <span>{argument.name}:&nbsp;</span>
+  //       <Type prefix={prefix} name={parsedTypeName} postfix={postfix} onClick={onClick} />
+  //     </Flex>
+  //   );
+
+  const { type, typePostfix, typePrefix, name } = argument;
   return (
-    <Flex key={argument.name}>
-      <span>{argument.name}:&nbsp;</span>
-      <SchemaType prefix={prefix} name={typeName} postfix={postfix} onClick={onClick} />
+    <Flex>
+      <span>{name}:&nbsp;</span>
+      <Type prefix={typePrefix} name={type} postfix={typePostfix} onClick={onClick} />
     </Flex>
   );
+
+  return null;
 };

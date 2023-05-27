@@ -1,10 +1,11 @@
-import { SchemaComponents } from './const';
+import { IHistory } from './interfaces';
 
 interface IFieldNameProps {
+  parentTypeName: string;
   name: string;
-  onClick: (name: string, component: SchemaComponents) => void;
+  onClick: (newEntry: IHistory) => void;
 }
 
-export const FieldName = ({ name, onClick }: IFieldNameProps) => {
-  return <span onClick={() => onClick(name, SchemaComponents.FIELD)}>{name}</span>;
+export const FieldName = ({ name, parentTypeName, onClick }: IFieldNameProps) => {
+  return <span onClick={() => onClick({ fieldName: name, typeName: parentTypeName })}>{name}</span>;
 };

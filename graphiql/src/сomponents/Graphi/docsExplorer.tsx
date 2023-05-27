@@ -1,33 +1,49 @@
 import { Flex } from '@mantine/core';
-import { GraphQLNamedType, GraphQLObjectType, GraphQLSchema, OperationTypeNode } from 'graphql';
-import { useState } from 'react';
-import { SchemaComponents } from './Schema/const';
-import { SchemaType } from './Schema/SchemaType';
+import { GraphQLObjectType, GraphQLSchema, OperationTypeNode } from 'graphql';
+import { useEffect, useState } from 'react';
+import { Header } from './Schema/Header';
+import { IHistory } from './Schema/interfaces';
+import { Type } from './Schema/Type';
+import { Input } from './Schema/Input';
 import { TypeDetails } from './Schema/TypeDetails';
+import { Search } from './Schema/Search';
+import { getSchema } from '../../utils/graphiApi';
 
 export interface IDocsExplorerProps {
-  schema?: GraphQLSchema;
+  onClose: () => void;
 }
 
-const DocsExplorer = ({ schema }: IDocsExplorerProps) => {
-  const [focusedType, setFocusedType] = useState<GraphQLNamedType>();
+const DocsExplorer = ({ onClose }: IDocsExplorerProps) => {
+  const [schema, setSchema] = useState<GraphQLSchema | undefined>();
+  const [focusedTypeName, setFocusedTypeName] = useState<string | undefined>();
   const [focusedFieldName, setFocusedFieldName] = useState<string | undefined>();
+  const [history, setHistory] = useState<IHistory[]>([]);
+  const [search, setSearch] = useState('');
+
+  useEffect(() => {
+    const downloadSchema = async () => {
+      const schema = await getSchema();
+      setSchema(schema);
+    };
+
+    downloadSchema();
+  }, []);
 
   if (!schema) {
-    return <div>Kek</div>;
+    return <div>Loading schema...</div>;
   }
 
-  const handleClick = (name: string, component: SchemaComponents) => {
-    if (component === SchemaComponents.FIELD) {
-      setFocusedFieldName(name);
-    } else if (component === SchemaComponents.TYPE) {
-      setFocusedFieldName(undefined);
-      const type = schema.getType(name);
-
-      if (type) {
-        setFocusedType(type);
-      }
-    }
+  const handleClick = (newEntry: IHistory) => {
+    setHistory(
+      history.concat({
+        typeName: focusedTypeName,
+        fieldName: focusedFieldName,
+        search: search,
+      })
+    );
+    setSearch('');
+    setFocusedFieldName(newEntry.fieldName);
+    setFocusedTypeName(newEntry.typeName);
   };
 
   const rootTypeMap = Object.values(OperationTypeNode).reduce((acc, u) => {
@@ -39,18 +55,60 @@ const DocsExplorer = ({ schema }: IDocsExplorerProps) => {
     return acc;
   }, new Map<OperationTypeNode, GraphQLObjectType>());
 
+  const handleHistoryBack = () => {
+    const previousHistoryItem = history.slice(-1)[0];
+    if (previousHistoryItem) {
+      setFocusedTypeName(previousHistoryItem.typeName);
+      setFocusedFieldName(previousHistoryItem.fieldName);
+      setSearch(previousHistoryItem.search || '');
+      setHistory(history.slice(0, -1));
+    }
+  };
+
+  const handleSearchChange = (value: string) => {
+    setSearch(value);
+  };
+
+  console.log(schema);
+
+  const previousHistoryItem = history.slice(-1)[0];
+  const headerTitle = focusedFieldName || focusedTypeName || 'Documentation explorer';
+  const backButtonText = previousHistoryItem
+    ? previousHistoryItem.fieldName || previousHistoryItem.typeName || 'Schema'
+    : undefined;
+
+  const focusedType = focusedTypeName && schema.getType(focusedTypeName);
+
   return (
     <Flex w={450} direction="column" bg="grey">
-      {focusedType ? (
+      <Header
+        onBackClick={handleHistoryBack}
+        onCloseClick={onClose}
+        title={headerTitle}
+        backButtonText={backButtonText}
+      />
+      {!focusedFieldName && (
+        <Input placeHolder="Schema" onChange={handleSearchChange} value={search} />
+      )}
+      {search ? (
+        <Search
+          search={search}
+          schema={schema}
+          onClick={handleClick}
+          focusedTypeName={focusedTypeName}
+        />
+      ) : focusedType ? (
         <TypeDetails type={focusedType} onClick={handleClick} focusedFieldName={focusedFieldName} />
       ) : (
         <>
+          <p>A GraphQL schema provides a root type for each kind of operation.</p>
+          <p>Root types</p>
           {[...rootTypeMap.entries()].map(([name, type]) => {
             return (
               <>
                 <Flex>
                   <span>{name}: </span>
-                  <SchemaType key={name} onClick={handleClick} name={type.name} />
+                  <Type key={name} onClick={handleClick} name={type.name} />
                 </Flex>
               </>
             );
