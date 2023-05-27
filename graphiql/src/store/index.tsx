@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import userReduser from './userSlice';
-import graphiReduser from './GraphiReduser';
+import graphiReduser from './graphiSlice';
 
 const store = configureStore({
   reducer: {
