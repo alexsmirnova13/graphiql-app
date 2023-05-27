@@ -2,7 +2,6 @@ import { Button, Flex, MantineTheme, createStyles, Box, useMantineTheme } from '
 import { getSchema } from './getSchema';
 import { useState } from 'react';
 import { ReactComponent as Logo } from '../../../assets/svg/docsLogo.svg';
-//import Logo from '../../../assets/svg/docsLogo.svg';
 import Docs from './Docs/Docs';
 
 export type Item = {

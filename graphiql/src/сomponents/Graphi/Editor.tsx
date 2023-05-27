@@ -4,8 +4,6 @@ import { javascript } from '@codemirror/lang-javascript';
 import { Button, Flex, Box, useMantineTheme, createStyles, MantineTheme } from '@mantine/core';
 import { THeandler } from './requestSection';
 import { useTranslation } from 'react-i18next';
-//import { androidstudio } from '@uiw/codemirror-theme-androidstudio';
-//import { bbedit } from '@uiw/codemirror-theme-bbedit'; //! удалить если не зайдет
 
 interface IEditor {
   code: string;

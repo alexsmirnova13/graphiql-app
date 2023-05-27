@@ -6,11 +6,6 @@ import { IconNotebook } from '@tabler/icons-react';
 import DocsExplorer from '../сomponents/Graphi/docsExplorer/DocsExplorer';
 
 const useStyles = createStyles({
-  // large: {
-  //   ['@media (min-width: 1100px)']: {
-  //     flexDirection: 'row',
-  //   },
-  // },
   middle: {
     flex: '1',
     ['@media (max-width: 1025px)']: {
