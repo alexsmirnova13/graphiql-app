@@ -11,7 +11,7 @@ import { useTranslation, Trans } from 'react-i18next';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { IconSunHigh, IconMoon, IconHome2 } from '@tabler/icons-react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth, db } from '../../firebase';
+import { auth, db, logout } from '../../firebase';
 import AuthBtns from './AuthBtns';
 import Logout from './Logout';
 import { useEffect, useState } from 'react';
@@ -58,6 +58,7 @@ const Menu = (props: MenuProps) => {
 
   const [user, loading, error] = useAuthState(auth);
   const [name, setName] = useState('');
+  const [dbError, setDbError] = useState<JSX.Element | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -68,7 +69,14 @@ const Menu = (props: MenuProps) => {
         const data = doc.docs[0].data();
         setName(data.email);
       } catch (err) {
-        alert('An error occured while fetching user data');
+        if (err instanceof Error) {
+          if (err) setDbError(<Trans i18nKey={'formError.dbError'} />);
+          navigate('/');
+          logout();
+        }
+        setTimeout(() => {
+          setDbError(null);
+        }, 3000);
       }
     };
     if (loading) return;
@@ -97,7 +105,13 @@ const Menu = (props: MenuProps) => {
 
       <Flex justify={'flex-start'} gap={10} wrap={'wrap'}>
         {user !== null ? (
-          <Logout buttonType={buttonType} name={name} error={error} loading={loading} />
+          <Logout
+            buttonType={buttonType}
+            name={name}
+            error={error}
+            errorDB={dbError}
+            loading={loading}
+          />
         ) : (
           <AuthBtns {...{ buttonType, currentPage }}></AuthBtns>
         )}

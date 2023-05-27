@@ -5,13 +5,13 @@ import Menu from './Menu';
 
 const useStyles = createStyles({
   hiddenDesktop: {
-    ['@media (min-width: 601px)']: {
+    ['@media (min-width: 669px)']: {
       display: 'none',
     },
   },
   hiddenMobile: {
     flex: '1',
-    ['@media (max-width: 600px)']: {
+    ['@media (max-width: 668px)']: {
       display: 'none',
     },
   },

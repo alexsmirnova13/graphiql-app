@@ -11,8 +11,6 @@ const getGpahGLresponse = async (body: string, variables: string) => {
       'content-type': 'application/json',
     };
 
-    console.log(graphqlQuery);
-
     const response = await axios({
       url: endpoint,
       method: 'post',
@@ -20,7 +18,6 @@ const getGpahGLresponse = async (body: string, variables: string) => {
       data: graphqlQuery,
     });
 
-    console.log(response.data); // data
     return response.data;
   } catch (err) {
     if (axios.isAxiosError(err)) {
