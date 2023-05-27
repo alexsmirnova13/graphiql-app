@@ -1,15 +1,43 @@
-import { Accordion } from '@mantine/core';
+import { Button } from '@mantine/core';
+import { getSchema } from './getSchema';
+import { useState } from 'react';
+import Docs from './Docs/Docs';
+
+export type Item = {
+  description: string;
+  name: string;
+  type: {
+    kind: string;
+  };
+};
+export interface Schema {
+  data: {
+    __schema: {
+      queryType: {
+        fields: Item[];
+      };
+    };
+  };
+}
 
 const Heading = () => {
+  const [schema, setSchema] = useState<Schema | null>(null);
+  const submit = async () => {
+    if (schema === null) {
+      const response = await getSchema();
+      setSchema(response);
+      console.log(response);
+    } else {
+      setSchema(null);
+    }
+  };
   return (
-    <Accordion variant="separated" radius="xs" defaultValue="customization">
-      <Accordion.Item value="customization">
-        <Accordion.Control>Customization</Accordion.Control>
-        <Accordion.Panel>
-          Colors, fonts, shadows and many other parts are customizable to fit your design needs
-        </Accordion.Panel>
-      </Accordion.Item>
-    </Accordion>
+    <>
+      <Button variant="light" onClick={() => submit()}>
+        Query
+      </Button>
+      {schema && <Docs items={[...schema.data.__schema.queryType.fields]} />}
+    </>
   );
 };
 

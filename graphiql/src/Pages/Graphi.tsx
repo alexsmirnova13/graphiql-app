@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import DocsExplorer from '../сomponents/Graphi/docsExplorer/docsExplorer';
 import RequestSection from '../сomponents/Graphi/requestSection';
 import ResultSection from '../сomponents/Graphi/resultSection';
 import { Flex, createStyles, Button } from '@mantine/core';
 import { IconNotebook } from '@tabler/icons-react';
+import DocsExplorer from '../сomponents/Graphi/docsExplorer/DocsExplorer';
 
 const useStyles = createStyles({
   // large: {

@@ -1,6 +1,6 @@
-import { Button, Flex, MantineTheme, createStyles } from '@mantine/core';
-import getScheme from './getScheme';
-import { useState } from 'react';
+import { Flex, MantineTheme, createStyles } from '@mantine/core';
+import { Suspense } from 'react';
+import Heading from './Heading';
 
 const useStyles = createStyles((theme: MantineTheme) => ({
   middle: {
@@ -17,16 +17,12 @@ const useStyles = createStyles((theme: MantineTheme) => ({
 
 const DocsExplorer = () => {
   const { classes } = useStyles();
-  const [scheme, setScheme] = useState();
-  const submit = async () => {
-    const response = await getScheme();
-    setScheme(response);
-    console.log(response);
-  };
+
   return (
     <Flex w="200px" direction="column" gap="sm" className={classes.middle}>
-      <Button onClick={() => submit()}></Button>
-      {JSON.stringify(scheme)}
+      <Suspense fallback={<p>loading...</p>}>
+        <Heading />
+      </Suspense>
     </Flex>
   );
 };
