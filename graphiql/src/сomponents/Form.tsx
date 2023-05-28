@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { auth, logInWithEmailAndPassword, registerWithEmailAndPassword } from '../firebase';
 import { Trans } from 'react-i18next';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { IconAlertCircle } from '@tabler/icons-react';
 import { isExpiredToken } from '../helpers/isExpiredToken';
 
@@ -40,16 +40,8 @@ export const Form = ({ title, handler }: FormProps) => {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [user, loading, error] = useAuthState(auth);
+  const [loading] = useAuthState(auth);
   const [formError, setFormError] = useState<JSX.Element | null>(null);
-
-  useEffect(() => {
-    if (loading) {
-      return;
-    }
-    if (error) return;
-    if (user) navigate('/graphi');
-  }, [user, loading, error, navigate]);
 
   const onFormSubmit = form.onSubmit(async (form) => {
     const handler = title === 'Login' ? logInWithEmailAndPassword : registerWithEmailAndPassword;
@@ -58,6 +50,7 @@ export const Form = ({ title, handler }: FormProps) => {
       if (user) {
         dispatch(setUser(user));
         isExpiredToken();
+        navigate('/');
       }
     } catch (err) {
       if (err instanceof Error) {

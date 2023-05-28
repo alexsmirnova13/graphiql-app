@@ -8,14 +8,12 @@ import {
   Box,
 } from '@mantine/core';
 import { useTranslation, Trans } from 'react-i18next';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { IconSunHigh, IconMoon, IconHome2 } from '@tabler/icons-react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth, db, logout } from '../../firebase';
+import { auth } from '../../firebase';
 import AuthBtns from './AuthBtns';
 import Logout from './Logout';
-import { useEffect, useState } from 'react';
-import { query, collection, getDocs, where } from 'firebase/firestore';
 
 const useStyles = createStyles({
   button: {
@@ -57,32 +55,6 @@ const Menu = (props: MenuProps) => {
   const buttonType = scroll === 0 ? 'subtle' : 'filled';
 
   const [user, loading, error] = useAuthState(auth);
-  const [name, setName] = useState('');
-  const [dbError, setDbError] = useState<JSX.Element | null>(null);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const getUser = async () => {
-      try {
-        const q = query(collection(db, 'users'), where('uid', '==', user?.uid));
-        const doc = await getDocs(q);
-        const data = doc.docs[0].data();
-        setName(data.email);
-      } catch (err) {
-        if (err instanceof Error) {
-          if (err) setDbError(<Trans i18nKey={'formError.dbError'} />);
-          navigate('/');
-          logout();
-        }
-        setTimeout(() => {
-          setDbError(null);
-        }, 3000);
-      }
-    };
-    if (loading) return;
-    if (!user) return navigate('/');
-    getUser();
-  }, [user, loading, navigate]);
 
   return (
     <>
@@ -107,9 +79,8 @@ const Menu = (props: MenuProps) => {
         {user !== null ? (
           <Logout
             buttonType={buttonType}
-            name={name}
+            name={user?.email}
             error={error}
-            errorDB={dbError}
             loading={loading}
             close={close}
           />

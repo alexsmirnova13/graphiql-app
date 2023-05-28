@@ -1,5 +1,6 @@
 import { Box, Button } from '@mantine/core';
 import React, { ErrorInfo, ReactNode } from 'react';
+import { Navigate } from 'react-router';
 
 type ErrorBoundaryProps = {
   children: ReactNode;
@@ -34,7 +35,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
       return (
         <Box m={'150px 45%'}>
           <h3>Something went wrong.</h3>
-          <Button variant="outline" onClick={() => (window.location.pathname = '/')}>
+          <Button variant="outline" onClick={() => <Navigate to="/" />}>
             Go to welcome page!
           </Button>
         </Box>

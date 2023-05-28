@@ -8,15 +8,14 @@ import { IconLogout } from '@tabler/icons-react';
 
 type LogoutProps = {
   buttonType: 'filled' | 'subtle';
-  name: string;
+  name: string | null | undefined;
   error: Error | undefined;
-  errorDB: JSX.Element | null;
   loading: boolean;
   close?: () => void;
 };
 
 const Logout = (props: LogoutProps) => {
-  const { buttonType, name, errorDB, close } = props;
+  const { buttonType, name, error, close } = props;
   const color = buttonType === 'subtle' ? '#228be6' : '#ffffff';
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -33,7 +32,7 @@ const Logout = (props: LogoutProps) => {
           <Avatar radius="xl" color="blue" />
           <div>
             <Text size="s"> {name} </Text>
-            {errorDB !== null && <Text size="s"> {errorDB} </Text>}
+            {error !== null && <Text size="s"> {error?.message} </Text>}
           </div>
         </Group>
       </UnstyledButton>

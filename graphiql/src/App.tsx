@@ -22,9 +22,8 @@ import { auth } from './firebase';
 import ErrorBoundary from './сomponents/ErrorBoundary';
 
 const App = () => {
-  const [user, loading, error] = useAuthState(auth);
-
   const ReguireAuth = ({ children }: { children: React.ReactElement }) => {
+    const [user, loading, error] = useAuthState(auth);
     if (loading) {
       return (
         <Box m="auto" ta="center" pt={250}>
@@ -39,6 +38,7 @@ const App = () => {
         </Alert>
       );
     }
+
     return user ? children : <Navigate to="/signin" />;
   };
 

@@ -20,7 +20,6 @@ const Graphi = () => {
   const handleClick = (bool: boolean) => {
     setIsOpened(bool);
   };
-
   return (
     <Flex w="100%" className={classes.middle}>
       <Flex direction="row">

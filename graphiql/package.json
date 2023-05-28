@@ -2,13 +2,15 @@
   "name": "graphiql",
   "private": true,
   "version": "0.0.0",
+  "homepage": "https://alexsmirnova13.github.io/graphiql-app/",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "deploy": "npm run build && ntl deploy --prod"
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@codemirror/lang-javascript": "^6.1.8",
@@ -62,6 +64,7 @@
     "typescript": "^5.0.2",
     "vite": "^4.3.2",
     "vite-plugin-sass-dts": "^1.3.5",
-    "vite-plugin-svgr": "^3.2.0"
+    "vite-plugin-svgr": "^3.2.0",
+    "gh-pages": "^5.0.0"
   }
 }
