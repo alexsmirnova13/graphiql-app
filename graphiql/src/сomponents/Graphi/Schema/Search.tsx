@@ -2,7 +2,6 @@ import { Flex } from '@mantine/core';
 import { GraphQLArgument, GraphQLInputObjectType, GraphQLObjectType, GraphQLSchema } from 'graphql';
 import { Arguments } from './Arguments';
 import { FieldName } from './FieldName';
-import { IHistory } from './interfaces';
 import { Type } from './Type';
 import { parseType } from './utils';
 
@@ -10,7 +9,6 @@ interface ISearchProps {
   schema: GraphQLSchema;
   focusedTypeName?: string;
   search: string;
-  onClick: (newEntry: IHistory) => void;
 }
 
 interface ISearchMatch {
@@ -19,7 +17,7 @@ interface ISearchMatch {
   argName?: string;
 }
 
-export const Search = ({ schema, search, focusedTypeName, onClick }: ISearchProps) => {
+export const Search = ({ schema, search, focusedTypeName }: ISearchProps) => {
   const criteria = search.toLowerCase();
   const typeMap = schema.getTypeMap();
 
@@ -130,9 +128,8 @@ export const Search = ({ schema, search, focusedTypeName, onClick }: ISearchProp
                   key={match.typeName + match.fieldName + match.argName}
                   parentTypeName={match.typeName}
                   name={match.fieldName}
-                  onClick={onClick}
                 />
-                {args && <Arguments onClick={onClick} args={args} />}
+                {args && <Arguments args={args} />}
               </Flex>
             )
           );
@@ -154,15 +151,15 @@ export const Search = ({ schema, search, focusedTypeName, onClick }: ISearchProp
         ];
         return (
           <Flex direction={'row'} key={typeName + fieldName + argName}>
-            <Type name={typeName} prefix={prefix} postfix={postfix} onClick={onClick}></Type>
+            <Type name={typeName} prefix={prefix} postfix={postfix}></Type>
             {fieldName && (
               <div>
-                .<FieldName parentTypeName={typeName} name={fieldName} onClick={onClick} />
+                .<FieldName parentTypeName={typeName} name={fieldName} />
               </div>
             )}
             {args && (
               <div>
-                <Arguments onClick={onClick} args={args} />
+                <Arguments args={args} />
               </div>
             )}
           </Flex>

@@ -1,17 +1,20 @@
-import { IHistory } from './interfaces';
+import { setFocusedFieldName } from '../../../store/docsSlice';
+import { useAppDispatch } from '../../../store/hooks';
 
 interface IFieldNameProps {
   parentTypeName: string;
   name: string;
-  onClick: (newEntry: IHistory) => void;
 }
 
-export const FieldName = ({ name, parentTypeName, onClick }: IFieldNameProps) => {
+export const FieldName = ({ name, parentTypeName }: IFieldNameProps) => {
+  const dispatch = useAppDispatch();
+
+  const handleClick = () => {
+    dispatch(setFocusedFieldName({ name, parentTypeName }));
+  };
+
   return (
-    <span
-      style={{ cursor: 'pointer', color: 'orange' }}
-      onClick={() => onClick({ fieldName: name, typeName: parentTypeName })}
-    >
+    <span style={{ cursor: 'pointer', color: 'orange' }} onClick={handleClick}>
       {name}
     </span>
   );

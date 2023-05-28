@@ -24,7 +24,6 @@ const Welcome = () => {
           <Trans i18nKey="welcome.p1" />
         </p>
         <Flex justify={'center'}>
-          {/* !добавить условный рендоринг */}
           <Box component={Link} to={'/graphi'}>
             <Button variant="gradient" gradient={{ from: 'orange', to: 'red' }} size="xl">
               <Trans i18nKey="welcome.start" />

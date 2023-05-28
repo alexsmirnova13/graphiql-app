@@ -1,20 +1,21 @@
-import { IHistory } from './interfaces';
+import { setFocusedTypeName } from '../../../store/docsSlice';
+import { useAppDispatch } from '../../../store/hooks';
 
 interface ITypeProps {
   prefix?: string;
   postfix?: string;
   name: string;
-  onClick: (newEntry: IHistory) => void;
 }
 
-export const Type = ({ prefix, postfix, name, onClick }: ITypeProps) => {
+export const Type = ({ prefix, postfix, name }: ITypeProps) => {
+  const dispatch = useAppDispatch();
+  const handleTypeClick = () => {
+    dispatch(setFocusedTypeName(name));
+  };
   return (
     <span>
       {prefix && <span>{prefix}</span>}
-      <span
-        style={{ cursor: 'pointer', color: 'green' }}
-        onClick={() => onClick({ typeName: name })}
-      >
+      <span style={{ cursor: 'pointer', color: 'green' }} onClick={handleTypeClick}>
         {name}
       </span>
       {postfix && <span>{postfix}</span>}

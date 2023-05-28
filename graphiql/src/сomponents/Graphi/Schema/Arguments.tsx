@@ -1,20 +1,19 @@
 import { Flex } from '@mantine/core';
 import { Argument } from './Argument';
-import { IArgument, IHistory } from './interfaces';
+import { IArgument } from './interfaces';
 
 interface IArgumentsProps {
   args: IArgument[];
-  onClick: (newEntry: IHistory) => void;
 }
 
-export const Arguments = ({ args, onClick }: IArgumentsProps) => {
+export const Arguments = ({ args }: IArgumentsProps) => {
   return (
     <Flex>
       <span>(</span>
       {args.map((argument, i) => {
         return (
           <Flex key={argument.name}>
-            <Argument argument={argument} onClick={onClick} />
+            <Argument argument={argument} />
             {i === args.length - 1 ? null : <span>,&nbsp;</span>}
           </Flex>
         );

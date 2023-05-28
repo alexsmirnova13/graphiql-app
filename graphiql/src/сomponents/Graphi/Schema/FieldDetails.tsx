@@ -1,13 +1,12 @@
 import { Flex } from '@mantine/core';
 import { Argument } from './Argument';
-import { IArgument, IHistory, IType } from './interfaces';
+import { IArgument, IType } from './interfaces';
 import { Type } from './Type';
 
 export interface IFieldDetailsProps {
   description?: string;
   type: IType;
   args?: IArgument[];
-  onClick: (newEntry: IHistory) => void;
 }
 
 export const FieldDetails = ({
@@ -15,7 +14,6 @@ export const FieldDetails = ({
   type,
   type: { prefix, name, postfix },
   args,
-  onClick,
 }: IFieldDetailsProps) => {
   return (
     <Flex direction={'column'}>
@@ -24,7 +22,7 @@ export const FieldDetails = ({
         <>
           <p>Type</p>
           <p>
-            <Type prefix={prefix} name={name} postfix={postfix} onClick={onClick} />
+            <Type prefix={prefix} name={name} postfix={postfix} />
           </p>
         </>
       )}
@@ -33,7 +31,7 @@ export const FieldDetails = ({
         <>
           <p>Arguments</p>
           {args?.map((argument) => (
-            <Argument key={argument.name} argument={argument} onClick={onClick} />
+            <Argument key={argument.name} argument={argument} />
           ))}
         </>
       )}

@@ -1,14 +1,13 @@
 import { Flex, MantineTheme, useMantineTheme, createStyles, Button, Box } from '@mantine/core';
 import { GraphQLObjectType, GraphQLScalarType, GraphQLSchema, OperationTypeNode } from 'graphql';
-import { useEffect, useState } from 'react';
 import { Header } from './Schema/Header';
-import { IHistory } from './Schema/interfaces';
 import { Type } from './Schema/Type';
 import { Input } from './Schema/Input';
 import { TypeDetails } from './Schema/TypeDetails';
 import { Search } from './Schema/Search';
-import { getSchema } from '../../utils/graphiApi';
 import { ReactComponent as Logo } from './../../assets/svg/docsLogo.svg';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { historyBack, setSearch } from '../../store/docsSlice';
 
 const useStyles = createStyles((theme: MantineTheme) => ({
   docsExplorer: {
@@ -19,48 +18,17 @@ const useStyles = createStyles((theme: MantineTheme) => ({
     },
   },
 }));
-const DocsExplorer = () => {
+const DocsExplorer = ({ schema }: { schema: GraphQLSchema | undefined }) => {
   const theme = useMantineTheme();
-  const [schema, setSchema] = useState<GraphQLSchema | undefined>();
-  const [focusedTypeName, setFocusedTypeName] = useState<string | undefined>();
-  const [focusedFieldName, setFocusedFieldName] = useState<string | undefined>();
-  const [history, setHistory] = useState<IHistory[]>([]);
-  const [search, setSearch] = useState('');
-  const [error, setError] = useState<string | undefined>();
+  const { focusedTypeName, focusedFieldName, history, search } = useAppSelector(
+    (state) => state.docs
+  );
+  const dispatch = useAppDispatch();
   const { classes } = useStyles();
-  useEffect(() => {
-    const downloadSchema = async () => {
-      try {
-        const schema = await getSchema();
-        setSchema(schema);
-      } catch (e) {
-        setError('loh');
-      }
-    };
-
-    downloadSchema();
-  }, []);
-
-  if (error) {
-    return <div>{error}</div>;
-  }
 
   if (!schema) {
-    return <div>Loading schema...</div>;
+    return <div>No schema found...</div>;
   }
-
-  const handleClick = (newEntry: IHistory) => {
-    setHistory(
-      history.concat({
-        typeName: focusedTypeName,
-        fieldName: focusedFieldName,
-        search: search,
-      })
-    );
-    setSearch('');
-    setFocusedFieldName(newEntry.fieldName);
-    setFocusedTypeName(newEntry.typeName);
-  };
 
   const rootTypeMap = Object.values(OperationTypeNode).reduce((acc, u) => {
     const key = u as OperationTypeNode;
@@ -71,18 +39,12 @@ const DocsExplorer = () => {
     return acc;
   }, new Map<OperationTypeNode, GraphQLObjectType>());
 
-  const handleHistoryBack = () => {
-    const previousHistoryItem = history.slice(-1)[0];
-    if (previousHistoryItem) {
-      setFocusedTypeName(previousHistoryItem.typeName);
-      setFocusedFieldName(previousHistoryItem.fieldName);
-      setSearch(previousHistoryItem.search || '');
-      setHistory(history.slice(0, -1));
-    }
+  const handleSearchChange = (value: string) => {
+    dispatch(setSearch(value));
   };
 
-  const handleSearchChange = (value: string) => {
-    setSearch(value);
+  const handleHistoryBack = () => {
+    dispatch(historyBack());
   };
 
   const previousHistoryItem = history.slice(-1)[0];
@@ -121,14 +83,9 @@ const DocsExplorer = () => {
         <Input placeHolder={placeholderText} onChange={handleSearchChange} value={search} />
       )}
       {search ? (
-        <Search
-          search={search}
-          schema={schema}
-          onClick={handleClick}
-          focusedTypeName={focusedTypeName}
-        />
+        <Search search={search} schema={schema} focusedTypeName={focusedTypeName} />
       ) : focusedType ? (
-        <TypeDetails type={focusedType} onClick={handleClick} focusedFieldName={focusedFieldName} />
+        <TypeDetails type={focusedType} focusedFieldName={focusedFieldName} />
       ) : (
         <>
           <p>A GraphQL schema provides a root type for each kind of operation.</p>
@@ -137,7 +94,7 @@ const DocsExplorer = () => {
             return (
               <Flex key={name}>
                 <span>{name}:&nbsp;</span>
-                <Type key={name} onClick={handleClick} name={type.name} />
+                <Type key={name} name={type.name} />
               </Flex>
             );
           })}

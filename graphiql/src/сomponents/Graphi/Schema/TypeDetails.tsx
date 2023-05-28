@@ -7,17 +7,15 @@ import {
   GraphQLObjectType,
 } from 'graphql';
 import { FieldDetails } from './FieldDetails';
-import { IHistory } from './interfaces';
 import { Field } from './Field';
 import { parseType } from './utils';
 
 interface ITypeDetailsProps {
   type: GraphQLNamedType;
   focusedFieldName?: string;
-  onClick: (newEntry: IHistory) => void;
 }
 
-export const TypeDetails = ({ type, onClick, focusedFieldName }: ITypeDetailsProps) => {
+export const TypeDetails = ({ type, focusedFieldName }: ITypeDetailsProps) => {
   if (type instanceof GraphQLObjectType || type instanceof GraphQLInputObjectType) {
     const fieldsMap = type.getFields();
 
@@ -42,7 +40,6 @@ export const TypeDetails = ({ type, onClick, focusedFieldName }: ITypeDetailsPro
         <FieldDetails
           description={field.description || undefined}
           args={args || undefined}
-          onClick={onClick}
           type={{
             name: typeName,
             prefix,
@@ -75,7 +72,6 @@ export const TypeDetails = ({ type, onClick, focusedFieldName }: ITypeDetailsPro
                     parentTypeName={type.name}
                     type={value.type}
                     args={args}
-                    onClick={onClick}
                   />
                 );
               })}

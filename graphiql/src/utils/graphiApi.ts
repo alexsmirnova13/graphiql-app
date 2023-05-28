@@ -1,6 +1,7 @@
 import { getIntrospectionQuery, buildClientSchema, IntrospectionQuery } from 'graphql';
+import { wrapPromise } from './wrapPromise';
 
-export const getSchema = async () => {
+const getSchema = async () => {
   const introspectionQuery = getIntrospectionQuery();
 
   const response = await fetch('https://rickandmortyapi.com/graphql', {
@@ -16,4 +17,10 @@ export const getSchema = async () => {
   const schema = buildClientSchema(data);
 
   return schema;
+};
+
+export const fetchSchema = () => {
+  const promise = getSchema();
+
+  return wrapPromise(promise);
 };
