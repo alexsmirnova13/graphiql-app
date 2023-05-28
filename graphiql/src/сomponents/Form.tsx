@@ -45,7 +45,6 @@ export const Form = ({ title, handler }: FormProps) => {
 
   useEffect(() => {
     if (loading) {
-      // maybe trigger a loading screen
       return;
     }
     if (error) return;
