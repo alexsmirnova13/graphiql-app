@@ -1,0 +1,1 @@
+import{i as n}from"./is-callable-ff085ac5.js";var e=n,i=Function.prototype.toString,o=/^\s*function/,a=/^\([^\)]*\) *=>/,s=/^[^=]*=>/,v=function(t){if(!e(t))return!1;var r=i.call(t);return r.length>0&&!o.test(r)&&(a.test(r)||s.test(r))};export{v as i};
