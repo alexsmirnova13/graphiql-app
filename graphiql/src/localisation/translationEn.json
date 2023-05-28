@@ -1,0 +1,63 @@
+{
+  "welcome": {
+    "h1": "Welcome to the home page of our GraphQL-powered application!",
+    "p1": "Our application offers users an easy and fast way to perform GraphQL queries to obtain data from various sources. With our intuitive interface, you can easily create and execute queries to get the information you need.",
+    "h2": "Key features of the application:",
+    "li1": "Flexible and powerful GraphQL query language that allows you to get only the data you really need.",
+    "li2": "Availability of examples and query templates for a quick start.",
+    "li3": "Ability to save and load queries for further use and improvement.",
+    "li4": "Support for authorization and secure data transfer between client and server.",
+    "li5": "Intuitive documentation and prompts for the best understanding of working with GraphQL.",
+    "p2": "Create your first GraphQL query and experience the benefits of using our application for data management. Forward to new knowledge and opportunities!",
+    "start": "Get start!"
+  },
+  "header": {
+    "welcome__link": "Welcome",
+    "signin": "Login",
+    "signup": "Create account",
+    "home": "Home",
+    "logout": "Logout",
+    "user": "Logged in as "
+  },
+  "form": {
+    "registration": "Registration",
+    "login": "Login",
+    "email": "Email:",
+    "password": "Password:",
+    "signup": "Create account"
+  },
+  "formError": {
+    "email": "Invalid email",
+    "password": "Password must be at least 8 characters long and contain at least one letter, one digit, and one special character",
+    "alert": "Attention!",
+    "noUser": "User not found! Check login or password!",
+    "wrEmail": "Invalid email address",
+    "wrPassword": "Wrong password",
+    "exitsUser": "User with this email exists!",
+    "generelError": "Something went wrong!",
+    "dbError": "Something went wrong with database"
+  },
+  "footer": {
+    "andrei": "Andrei",
+    "alex": "Aleksandra",
+    "ira": "Iryna"
+  },
+
+  "page404": {
+    "h2": "We can not find that page",
+    "p": "We are fairly sure that page used to be here, but seems to have gone missing. We do apologise on it is behalf.",
+    "button": "Home"
+  },
+  "editor": {
+    "varibalse": "Variables editor",
+    "request": "Request editor",
+    "headers": "Headers editor",
+    "response": "Response section",
+    "headersMessage": "There are no headers",
+    "defaultResponse": "Here will be the response"
+  },
+  "docsExplorer": {
+    "h1": "Documentation explorer",
+    "backSchema": "Back to "
+  }
+}
