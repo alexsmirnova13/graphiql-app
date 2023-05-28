@@ -1,4 +1,4 @@
-import { Flex, MantineTheme, createStyles } from '@mantine/core';
+import { Flex, MantineTheme, useMantineTheme, createStyles, Button, Box } from '@mantine/core';
 import { GraphQLObjectType, GraphQLScalarType, GraphQLSchema, OperationTypeNode } from 'graphql';
 import { useEffect, useState } from 'react';
 import { Header } from './Schema/Header';
@@ -8,13 +8,19 @@ import { Input } from './Schema/Input';
 import { TypeDetails } from './Schema/TypeDetails';
 import { Search } from './Schema/Search';
 import { getSchema } from '../../utils/graphiApi';
+import { ReactComponent as Logo } from './../../assets/svg/docsLogo.svg';
 
 const useStyles = createStyles((theme: MantineTheme) => ({
   docsExplorer: {
     background: theme.colorScheme === 'dark' ? theme.colors.gray[9] : theme.colors.gray[1],
+    borderRight: '1px solid #ddd',
+    ['@media (max-width: 1025px)']: {
+      width: '100%',
+    },
   },
 }));
 const DocsExplorer = () => {
+  const theme = useMantineTheme();
   const [schema, setSchema] = useState<GraphQLSchema | undefined>();
   const [focusedTypeName, setFocusedTypeName] = useState<string | undefined>();
   const [focusedFieldName, setFocusedFieldName] = useState<string | undefined>();
@@ -89,13 +95,27 @@ const DocsExplorer = () => {
   const showSearch = !(focusedFieldName || focusedType instanceof GraphQLScalarType);
   const placeholderText = 'Search ' + (focusedTypeName || 'Schema') + '...';
 
+  const svgColor = theme.colorScheme === 'dark' ? '#a5d8ff' : '#228be6';
+
   return (
-    <Flex
-      w={350}
-      style={{ padding: '50px 20px 20px 20px' }}
-      direction="column"
-      className={classes.docsExplorer}
-    >
+    <Flex w={350} direction="column" className={classes.docsExplorer}>
+      <Box
+        component="a"
+        target="_blank"
+        href="https://rickandmortyapi.com/documentation"
+        sx={{
+          textDecoration: 'none',
+        }}
+      >
+        <Button
+          variant="light"
+          fullWidth
+          radius={0}
+          leftIcon={<Logo width={30} hanging={30} fill={svgColor} />}
+        >
+          Rick&Morty
+        </Button>
+      </Box>
       <Header onBackClick={handleHistoryBack} title={headerTitle} backButtonText={backButtonText} />
       {showSearch && (
         <Input placeHolder={placeholderText} onChange={handleSearchChange} value={search} />

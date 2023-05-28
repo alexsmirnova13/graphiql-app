@@ -14,7 +14,7 @@ export const Input = ({ placeHolder, value, onChange }: IInputProps) => {
 
   return (
     <MantineInput
-      style={{ padding: '30px 0' }}
+      // style={{ padding: '30px 0' }}
       placeholder={placeHolder || 'Type here'}
       onChange={handleChange}
       value={value}

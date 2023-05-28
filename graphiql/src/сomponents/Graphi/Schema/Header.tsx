@@ -8,7 +8,7 @@ interface IHeaderProps {
 
 export const Header = ({ title, backButtonText, onBackClick }: IHeaderProps) => {
   return (
-    <Flex direction={'row'} justify="space-between">
+    <Flex direction={'row'} justify="space-between" align="center" px={10}>
       {backButtonText && (
         <Button onClick={onBackClick}>
           <Trans i18nKey="docsExplorer.backSchema"></Trans> {backButtonText}
